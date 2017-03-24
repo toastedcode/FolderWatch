@@ -1,0 +1,395 @@
+<html>
+
+<head>
+<style>
+
+table.user-field-table
+{
+   border-collapse: collapse;
+   width: 800px;
+}
+
+table.part-inspection-table
+{
+   border-collapse: collapse;
+   width: 800;
+}
+
+th, td
+{
+   text-align: left;
+   padding: 8px;
+}
+
+tr:nth-child(even)
+{
+   background-color: #f2f2f2
+}
+
+input[type="text"]
+{
+    width: 120px;
+}
+
+th
+{
+   background-color: #11418e;
+   color: white;
+}
+
+td.measurement-result-pass
+{
+   color: green;
+}
+
+td.measurement-result-warning
+{
+   color: orange;
+}
+
+td.measurement-result-fail
+{
+   color: red;
+}
+
+input.measurement-result-fail
+{
+   background-color: #f78c8c;
+}
+
+textarea
+{
+   width: 500px;
+   height: 50px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="email-prologue-container">
+</div>
+
+<div id="user-field-container">
+<h2>Summary</h2>
+<table class="user-field-table">
+<tr>
+<td><label>Date</label></td>
+<td><input type="text" disabled value="01/20/2017"/></td>
+<td><label>Machine #</label></td>
+<td><input type="text" disabled value=""/></td>
+<td><label>Part Count</label></td>
+<td><input type="text" disabled value=""/></td>
+</tr>
+<tr>
+<td><label>Time</label></td>
+<td><input type="text" value="01:32:41 PM" disabled/></td>
+<td><label>Part #</label></td>
+<td><input type="text" disabled value="M8263 Rev 15"/></td>
+<td><label>Failure count</label></td>
+<td><input type="text" class="measurement-result-pass" value="0" disabled/></td>
+</tr>
+<tr>
+<td><label>Employee #</label></td>
+<td><input type="text" disabled value="204"/></td>
+<td><label>Sample Size</label></td>
+<td><input type="text" disabled value="6"/></td>
+<td><label>Efficiency</label></td>
+<td><input type="text" disabled value=""/></td>
+</tr>
+</table>
+<tr>
+<label>Comments</label>
+</br>
+<textarea disabled></textarea>
+</tr>
+</table>
+</div>
+
+<div id="part-inspection-container">
+<h2>Sample 1</h2>
+<table class="part-inspection-table">
+<tr class="part-inspection-table-header">
+<th>Name</th>
+<th>Low Limit</th>
+<th>Low Warning</th>
+<th>Measured</th>
+<th>High Warning</th>
+<th>High Limit</th>
+<th>Result</th>
+</tr>
+<tr><td>OAL</td>
+<td>0.682</td>
+<td>0.6825</td>
+<td>0.6839</td>
+<td>0.6915</td>
+<td>0.692</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>hex lgh</td>
+<td>0.365</td>
+<td>0.366</td>
+<td>0.3752</td>
+<td>0.384</td>
+<td>0.385</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>back</td>
+<td>0.845</td>
+<td>0.8458</td>
+<td>0.8514</td>
+<td>0.8592</td>
+<td>0.86</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>front</td>
+<td>0.845</td>
+<td>0.8458</td>
+<td>0.8524</td>
+<td>0.8592</td>
+<td>0.86</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>chm lgh</td>
+<td>0.02</td>
+<td>0.021</td>
+<td>0.0261</td>
+<td>0.039</td>
+<td>0.04</td>
+<td class="measurement-result-pass">PASS</td>
+</tr></table>
+<br/><h2>Sample 2</h2>
+<table class="part-inspection-table">
+<tr class="part-inspection-table-header">
+<th>Name</th>
+<th>Low Limit</th>
+<th>Low Warning</th>
+<th>Measured</th>
+<th>High Warning</th>
+<th>High Limit</th>
+<th>Result</th>
+</tr>
+<tr><td>OAL</td>
+<td>0.682</td>
+<td>0.6825</td>
+<td>0.6838</td>
+<td>0.6915</td>
+<td>0.692</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>hex lgh</td>
+<td>0.365</td>
+<td>0.366</td>
+<td>0.3757</td>
+<td>0.384</td>
+<td>0.385</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>back</td>
+<td>0.845</td>
+<td>0.8458</td>
+<td>0.8529</td>
+<td>0.8592</td>
+<td>0.86</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>front</td>
+<td>0.845</td>
+<td>0.8458</td>
+<td>0.8534</td>
+<td>0.8592</td>
+<td>0.86</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>chm lgh</td>
+<td>0.02</td>
+<td>0.021</td>
+<td>0.0264</td>
+<td>0.039</td>
+<td>0.04</td>
+<td class="measurement-result-pass">PASS</td>
+</tr></table>
+<br/><h2>Sample 3</h2>
+<table class="part-inspection-table">
+<tr class="part-inspection-table-header">
+<th>Name</th>
+<th>Low Limit</th>
+<th>Low Warning</th>
+<th>Measured</th>
+<th>High Warning</th>
+<th>High Limit</th>
+<th>Result</th>
+</tr>
+<tr><td>OAL</td>
+<td>0.682</td>
+<td>0.6825</td>
+<td>0.6843</td>
+<td>0.6915</td>
+<td>0.692</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>hex lgh</td>
+<td>0.365</td>
+<td>0.366</td>
+<td>0.3756</td>
+<td>0.384</td>
+<td>0.385</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>back</td>
+<td>0.845</td>
+<td>0.8458</td>
+<td>0.8514</td>
+<td>0.8592</td>
+<td>0.86</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>front</td>
+<td>0.845</td>
+<td>0.8458</td>
+<td>0.8525</td>
+<td>0.8592</td>
+<td>0.86</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>chm lgh</td>
+<td>0.02</td>
+<td>0.021</td>
+<td>0.0264</td>
+<td>0.039</td>
+<td>0.04</td>
+<td class="measurement-result-pass">PASS</td>
+</tr></table>
+<br/><h2>Sample 4</h2>
+<table class="part-inspection-table">
+<tr class="part-inspection-table-header">
+<th>Name</th>
+<th>Low Limit</th>
+<th>Low Warning</th>
+<th>Measured</th>
+<th>High Warning</th>
+<th>High Limit</th>
+<th>Result</th>
+</tr>
+<tr><td>OAL</td>
+<td>0.682</td>
+<td>0.6825</td>
+<td>0.6837</td>
+<td>0.6915</td>
+<td>0.692</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>hex lgh</td>
+<td>0.365</td>
+<td>0.366</td>
+<td>0.3749</td>
+<td>0.384</td>
+<td>0.385</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>back</td>
+<td>0.845</td>
+<td>0.8458</td>
+<td>0.8519</td>
+<td>0.8592</td>
+<td>0.86</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>front</td>
+<td>0.845</td>
+<td>0.8458</td>
+<td>0.8523</td>
+<td>0.8592</td>
+<td>0.86</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>chm lgh</td>
+<td>0.02</td>
+<td>0.021</td>
+<td>0.0272</td>
+<td>0.039</td>
+<td>0.04</td>
+<td class="measurement-result-pass">PASS</td>
+</tr></table>
+<br/><h2>Sample 5</h2>
+<table class="part-inspection-table">
+<tr class="part-inspection-table-header">
+<th>Name</th>
+<th>Low Limit</th>
+<th>Low Warning</th>
+<th>Measured</th>
+<th>High Warning</th>
+<th>High Limit</th>
+<th>Result</th>
+</tr>
+<tr><td>OAL</td>
+<td>0.682</td>
+<td>0.6825</td>
+<td>0.6842</td>
+<td>0.6915</td>
+<td>0.692</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>hex lgh</td>
+<td>0.365</td>
+<td>0.366</td>
+<td>0.3788</td>
+<td>0.384</td>
+<td>0.385</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>back</td>
+<td>0.845</td>
+<td>0.8458</td>
+<td>0.8496</td>
+<td>0.8592</td>
+<td>0.86</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>front</td>
+<td>0.845</td>
+<td>0.8458</td>
+<td>0.8499</td>
+<td>0.8592</td>
+<td>0.86</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>chm lgh</td>
+<td>0.02</td>
+<td>0.021</td>
+<td>0.0257</td>
+<td>0.039</td>
+<td>0.04</td>
+<td class="measurement-result-pass">PASS</td>
+</tr></table>
+<br/><h2>Sample 6</h2>
+<table class="part-inspection-table">
+<tr class="part-inspection-table-header">
+<th>Name</th>
+<th>Low Limit</th>
+<th>Low Warning</th>
+<th>Measured</th>
+<th>High Warning</th>
+<th>High Limit</th>
+<th>Result</th>
+</tr>
+<tr><td>OAL</td>
+<td>0.682</td>
+<td>0.6825</td>
+<td>0.6848</td>
+<td>0.6915</td>
+<td>0.692</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>hex lgh</td>
+<td>0.365</td>
+<td>0.366</td>
+<td>0.3775</td>
+<td>0.384</td>
+<td>0.385</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>back</td>
+<td>0.845</td>
+<td>0.8458</td>
+<td>0.8513</td>
+<td>0.8592</td>
+<td>0.86</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>front</td>
+<td>0.845</td>
+<td>0.8458</td>
+<td>0.8522</td>
+<td>0.8592</td>
+<td>0.86</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>chm lgh</td>
+<td>0.02</td>
+<td>0.021</td>
+<td>0.0254</td>
+<td>0.039</td>
+<td>0.04</td>
+<td class="measurement-result-pass">PASS</td>
+</tr></table>
+<br/></div>
+
+</body>
+</html>

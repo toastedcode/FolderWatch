@@ -26,10 +26,10 @@ public class UserField
          {
             case USER_FIELD_LABEL:
             {
-               if (tokens.length != lineType.getTokenCount())
+               if (tokens.length == 1)
                {
-                  // Parse error!
-                  success = false;
+                  // Allow for empty values.
+                  value = "";
                }
                else
                {

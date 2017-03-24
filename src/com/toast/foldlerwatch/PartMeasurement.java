@@ -24,7 +24,7 @@ public class PartMeasurement
             }
             else if (i == RESULT_INDEX)
             {
-               result = MeasurementResult.valueOf(tokens[i]);
+               result = MeasurementResult.valueOfToken(tokens[i]);
             }
             else
             {
@@ -87,8 +87,20 @@ public class PartMeasurement
       }
       
       // Result
-      String htmlClass = (result == MeasurementResult.PASS) ? "measurement-result-pass" : "measurement-result-fail"; 
-      html += "<td class=\"" + htmlClass + "\">" + result.toString() + "</td>\n";
+      String htmlClass = "";
+      if (result.isPassed())
+      {
+         htmlClass =  "measurement-result-pass";
+      }
+      else if (result.isWarning())
+      {
+         htmlClass =  "measurement-result-warning";
+      }
+      else
+      {
+         htmlClass =  "measurement-result-fail";         
+      }
+      html += "<td class=\"" + htmlClass + "\">" + result.getToken() + "</td>\n";
       
       html += "</tr>";
       
@@ -109,5 +121,5 @@ public class PartMeasurement
    
    private Map<MeasurementType, Double> data = new HashMap<MeasurementType, Double>();
    
-   private MeasurementResult result = MeasurementResult.FAIL;
+   private MeasurementResult result = MeasurementResult.FAIL_HIGH;
 }

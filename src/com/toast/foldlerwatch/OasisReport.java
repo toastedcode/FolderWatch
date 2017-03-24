@@ -3,7 +3,6 @@ package com.toast.foldlerwatch;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
@@ -36,7 +35,20 @@ public class OasisReport
       // Read file, line by line.
       while ((line = bufferedReader.readLine()) != null)
       {
-         success &= parse(line);
+         try
+         {
+            success &= parse(line);
+         }
+         catch (Exception e)
+         {
+            System.out.format("Failed to parse line in file [%s]: \"%s\"", file.toString(), line);
+         }
+         
+         if (!success)
+         {
+            System.out.format("Failed to parse line in file [%s]: \"%s\"", file.toString(), line);
+            break;
+         }
       }
       
       bufferedReader.close();
@@ -142,31 +154,6 @@ public class OasisReport
       return (value);
    }
    
-   /*
-   public Date getDate()
-   {
-      String value = "";
-      Date date = null;
-      
-      try
-      {
-         if (userFields.containsKey(UserFieldType.DATE.ordinal()))
-         {
-            value = userFields.get(UserFieldType.DATE.ordinal()).getValue();
-            
-            DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
-            date = format.parse(value);
-         }
-      }
-      catch (ParseException e)
-      {
-         // TODO
-      }
-      
-      return (date);
-   }
-   */
-   
    public Date getDate()
    {
       Date date = null;
@@ -245,6 +232,18 @@ public class OasisReport
       }
       
       return (failureCount);
+   }
+   
+   public String getComments()
+   {
+      String value = "";
+      
+      if (userFields.containsKey(UserFieldType.COMMENTS.ordinal()))
+      {
+         value = userFields.get(UserFieldType.COMMENTS.ordinal()).getValue();
+      }
+      
+      return (value);      
    }
    
    private boolean parse(String line)
@@ -435,6 +434,14 @@ public class OasisReport
          
          index++;
       }
+      
+      html += "</table>\n";
+      
+      html += "<tr>\n" +
+              "<label>Comments</label>\n" +
+              "</br>\n" +
+              "<textarea disabled>" + getComments() + "</textarea>\n" +
+              "</tr>\n";
       
       html += "</table>\n";
       

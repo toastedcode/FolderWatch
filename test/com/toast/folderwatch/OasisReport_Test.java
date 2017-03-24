@@ -6,6 +6,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.FileVisitor;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 
 import org.junit.Test;
 
@@ -19,7 +26,7 @@ public class OasisReport_Test
       OasisReport report = new OasisReport();
       
       // Open a report file.
-      File file = new File("testreport.txt");
+      File file = new File("M8206 Rev 10.rpt");
       
       System.out.format("File: %s\n", file.getAbsolutePath());
       
@@ -29,7 +36,7 @@ public class OasisReport_Test
       assertTrue(report.getMachineNumber().equals("618"));
       assertTrue(report.getSampleSize() == 6);
       assertTrue(report.getPartCount() == 2725);
-      assertTrue(report.getEfficiency() == 77.5);
+      assertTrue(report.getEfficiency() == 77.0);
       
       System.out.format("Report date: %s\n",  report.getDate().toString());
    }
@@ -40,7 +47,7 @@ public class OasisReport_Test
       OasisReport report = new OasisReport();
       
       // Open a report file.
-      File file = new File("testreport.txt");
+      File file = new File("M8206 Rev 10.rpt");
     
       // Parse
       assertTrue(report.parse(file));
@@ -60,5 +67,51 @@ public class OasisReport_Test
       bufferedWriter.close();
       
       //System.out.format("%s\n", report.toHtml());
+   }
+   
+   @Test
+   public void testToHtml_large() throws IOException
+   {
+      Path p = Paths.get("./testcases/");
+      
+      FileVisitor<Path> fv = new SimpleFileVisitor<Path>()
+      {
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+            throws IOException
+        {
+           String filename = file.getFileName().toString();
+           
+           OasisReport report = new OasisReport();
+           
+           // Parse
+           assertTrue(report.parse(file.toFile()));
+           
+           // Convert to HTML.
+           String html = report.toHtml();
+           
+           //
+           // Write to a file.
+           //
+
+           FileWriter fileWriter = new FileWriter("./reports/" + filename.replace(".rpt",  ".html"));
+           BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+           
+           bufferedWriter.write(html);
+           
+           bufferedWriter.close();
+           
+           return (FileVisitResult.CONTINUE);
+        }
+      };
+
+      try
+      {
+         Files.walkFileTree(p, fv);
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+      }
    }
 }

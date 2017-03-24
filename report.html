@@ -42,6 +42,11 @@ td.measurement-result-pass
    color: green;
 }
 
+td.measurement-result-warning
+{
+   color: orange;
+}
+
 td.measurement-result-fail
 {
    color: red;
@@ -50,6 +55,12 @@ td.measurement-result-fail
 input.measurement-result-fail
 {
    background-color: #f78c8c;
+}
+
+textarea
+{
+   width: 500px;
+   height: 50px;
 }
 </style>
 </head>
@@ -76,7 +87,7 @@ input.measurement-result-fail
 <td><label>Part #</label></td>
 <td><input type="text" disabled value="M8206 Rev 10"/></td>
 <td><label>Failure count</label></td>
-<td><input type="text" class="measurement-result-fail" value="3" disabled/></td>
+<td><input type="text" class="measurement-result-fail" value="1" disabled/></td>
 </tr>
 <tr>
 <td><label>Employee #</label></td>
@@ -84,7 +95,13 @@ input.measurement-result-fail
 <td><label>Sample Size</label></td>
 <td><input type="text" disabled value="6"/></td>
 <td><label>Efficiency</label></td>
-<td><input type="text" disabled value="77.5%"/></td>
+<td><input type="text" disabled value="77%"/></td>
+</tr>
+</table>
+<tr>
+<label>Comments</label>
+</br>
+<textarea disabled>I made this while I was drunk.  Sorry.</textarea>
 </tr>
 </table>
 </div>
@@ -128,7 +145,7 @@ input.measurement-result-fail
 <td>0.6424</td>
 <td>0.65</td>
 <td>0.651</td>
-<td class="measurement-result-pass">PASS</td>
+<td class="measurement-result-fail">FAIL LOW</td>
 </tr><tr><td>major</td>
 <td>0.7385</td>
 <td>0.7389</td>
@@ -210,7 +227,7 @@ input.measurement-result-fail
 <td>0.6426</td>
 <td>0.65</td>
 <td>0.651</td>
-<td class="measurement-result-pass">PASS</td>
+<td class="measurement-result-warning">WARN HIGH</td>
 </tr><tr><td>major</td>
 <td>0.7385</td>
 <td>0.7389</td>
@@ -238,7 +255,7 @@ input.measurement-result-fail
 <td>44.64</td>
 <td>45.45</td>
 <td>45.5</td>
-<td class="measurement-result-fail">FAIL</td>
+<td class="measurement-result-pass">PASS</td>
 </tr><tr><td>.25 LGH</td>
 <td>0.24</td>
 <td>0.241</td>
@@ -388,7 +405,7 @@ input.measurement-result-fail
 <td>0.704</td>
 <td>0.7063</td>
 <td>0.7065</td>
-<td class="measurement-result-fail">FAIL</td>
+<td class="measurement-result-pass">PASS</td>
 </tr><tr><td>nose</td>
 <td>0.428</td>
 <td>0.429</td>
@@ -491,7 +508,7 @@ input.measurement-result-fail
 <td>0.2463</td>
 <td>0.259</td>
 <td>0.26</td>
-<td class="measurement-result-fail">FAIL</td>
+<td class="measurement-result-pass">PASS</td>
 </tr><tr><td>OAL</td>
 <td>1.518</td>
 <td>1.5185</td>

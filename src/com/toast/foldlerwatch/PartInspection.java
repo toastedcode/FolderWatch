@@ -148,7 +148,7 @@ public class PartInspection
       
       for (PartMeasurement measurement : measurements)
       {
-         if (measurement.getResult() == MeasurementResult.FAIL)
+         if (measurement.getResult().isFailed())
          {
             failureCount++;
          }

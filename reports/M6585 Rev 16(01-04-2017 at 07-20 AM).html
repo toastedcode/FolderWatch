@@ -1,0 +1,1040 @@
+<html>
+
+<head>
+<style>
+
+table.user-field-table
+{
+   border-collapse: collapse;
+   width: 800px;
+}
+
+table.part-inspection-table
+{
+   border-collapse: collapse;
+   width: 800;
+}
+
+th, td
+{
+   text-align: left;
+   padding: 8px;
+}
+
+tr:nth-child(even)
+{
+   background-color: #f2f2f2
+}
+
+input[type="text"]
+{
+    width: 120px;
+}
+
+th
+{
+   background-color: #11418e;
+   color: white;
+}
+
+td.measurement-result-pass
+{
+   color: green;
+}
+
+td.measurement-result-warning
+{
+   color: orange;
+}
+
+td.measurement-result-fail
+{
+   color: red;
+}
+
+input.measurement-result-fail
+{
+   background-color: #f78c8c;
+}
+
+textarea
+{
+   width: 500px;
+   height: 50px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="email-prologue-container">
+</div>
+
+<div id="user-field-container">
+<h2>Summary</h2>
+<table class="user-field-table">
+<tr>
+<td><label>Date</label></td>
+<td><input type="text" disabled value="01/04/2017"/></td>
+<td><label>Machine #</label></td>
+<td><input type="text" disabled value=""/></td>
+<td><label>Part Count</label></td>
+<td><input type="text" disabled value=""/></td>
+</tr>
+<tr>
+<td><label>Time</label></td>
+<td><input type="text" value="07:17:37 AM" disabled/></td>
+<td><label>Part #</label></td>
+<td><input type="text" disabled value="M6585 Rev 16"/></td>
+<td><label>Failure count</label></td>
+<td><input type="text" class="measurement-result-fail" value="1" disabled/></td>
+</tr>
+<tr>
+<td><label>Employee #</label></td>
+<td><input type="text" disabled value="204"/></td>
+<td><label>Sample Size</label></td>
+<td><input type="text" disabled value="8"/></td>
+<td><label>Efficiency</label></td>
+<td><input type="text" disabled value=""/></td>
+</tr>
+</table>
+<tr>
+<label>Comments</label>
+</br>
+<textarea disabled>PC.#8 TWICE OPER INF HIGH LIMIT</textarea>
+</tr>
+</table>
+</div>
+
+<div id="part-inspection-container">
+<h2>Sample 1</h2>
+<table class="part-inspection-table">
+<tr class="part-inspection-table-header">
+<th>Name</th>
+<th>Low Limit</th>
+<th>Low Warning</th>
+<th>Measured</th>
+<th>High Warning</th>
+<th>High Limit</th>
+<th>Result</th>
+</tr>
+<tr><td>thd lgh</td>
+<td>0.54</td>
+<td>0.543</td>
+<td>0.5495</td>
+<td>0.597</td>
+<td>0.6</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.62</td>
+<td>0.61</td>
+<td>0.611</td>
+<td>0.6182</td>
+<td>0.629</td>
+<td>0.63</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>hex lgh</td>
+<td>0.365</td>
+<td>0.366</td>
+<td>0.3699</td>
+<td>0.384</td>
+<td>0.385</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.70</td>
+<td>0.69</td>
+<td>0.691</td>
+<td>0.7003</td>
+<td>0.709</td>
+<td>0.71</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>thd lgh</td>
+<td>0.534</td>
+<td>0.537</td>
+<td>0.5664</td>
+<td>0.591</td>
+<td>0.594</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.531</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5309</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5317</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.725</td>
+<td>0.726</td>
+<td>0.7355</td>
+<td>0.744</td>
+<td>0.745</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>major</td>
+<td>0.614</td>
+<td>0.6144</td>
+<td>0.6158</td>
+<td>0.6216</td>
+<td>0.622</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>pitch</td>
+<td>0.583</td>
+<td>0.5832</td>
+<td>0.5843</td>
+<td>0.5863</td>
+<td>0.5865</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>nose</td>
+<td>0.302</td>
+<td>0.303</td>
+<td>0.3203</td>
+<td>0.321</td>
+<td>0.322</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>thd lgh</td>
+<td>0.21</td>
+<td>0.211</td>
+<td>0.2195</td>
+<td>0.229</td>
+<td>0.23</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>45 deg</td>
+<td>44.5</td>
+<td>44.55</td>
+<td>45.15</td>
+<td>45.45</td>
+<td>45.5</td>
+<td class="measurement-result-pass">PASS</td>
+</tr></table>
+<br/><h2>Sample 2</h2>
+<table class="part-inspection-table">
+<tr class="part-inspection-table-header">
+<th>Name</th>
+<th>Low Limit</th>
+<th>Low Warning</th>
+<th>Measured</th>
+<th>High Warning</th>
+<th>High Limit</th>
+<th>Result</th>
+</tr>
+<tr><td>thd lgh</td>
+<td>0.54</td>
+<td>0.543</td>
+<td>0.5475</td>
+<td>0.597</td>
+<td>0.6</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.62</td>
+<td>0.61</td>
+<td>0.611</td>
+<td>0.6161</td>
+<td>0.629</td>
+<td>0.63</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>hex lgh</td>
+<td>0.365</td>
+<td>0.366</td>
+<td>0.3713</td>
+<td>0.384</td>
+<td>0.385</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.70</td>
+<td>0.69</td>
+<td>0.691</td>
+<td>0.7037</td>
+<td>0.709</td>
+<td>0.71</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>thd lgh</td>
+<td>0.534</td>
+<td>0.537</td>
+<td>0.5713</td>
+<td>0.591</td>
+<td>0.594</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.531</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5308</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5318</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.725</td>
+<td>0.726</td>
+<td>0.7379</td>
+<td>0.744</td>
+<td>0.745</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>major</td>
+<td>0.614</td>
+<td>0.6144</td>
+<td>0.6158</td>
+<td>0.6216</td>
+<td>0.622</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>pitch</td>
+<td>0.583</td>
+<td>0.5832</td>
+<td>0.5841</td>
+<td>0.5863</td>
+<td>0.5865</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>nose</td>
+<td>0.302</td>
+<td>0.303</td>
+<td>0.3198</td>
+<td>0.321</td>
+<td>0.322</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>thd lgh</td>
+<td>0.21</td>
+<td>0.211</td>
+<td>0.2191</td>
+<td>0.229</td>
+<td>0.23</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>45 deg</td>
+<td>44.5</td>
+<td>44.55</td>
+<td>45.19</td>
+<td>45.45</td>
+<td>45.5</td>
+<td class="measurement-result-pass">PASS</td>
+</tr></table>
+<br/><h2>Sample 3</h2>
+<table class="part-inspection-table">
+<tr class="part-inspection-table-header">
+<th>Name</th>
+<th>Low Limit</th>
+<th>Low Warning</th>
+<th>Measured</th>
+<th>High Warning</th>
+<th>High Limit</th>
+<th>Result</th>
+</tr>
+<tr><td>thd lgh</td>
+<td>0.54</td>
+<td>0.543</td>
+<td>0.5488</td>
+<td>0.597</td>
+<td>0.6</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.62</td>
+<td>0.61</td>
+<td>0.611</td>
+<td>0.6191</td>
+<td>0.629</td>
+<td>0.63</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>hex lgh</td>
+<td>0.365</td>
+<td>0.366</td>
+<td>0.3693</td>
+<td>0.384</td>
+<td>0.385</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.70</td>
+<td>0.69</td>
+<td>0.691</td>
+<td>0.7011</td>
+<td>0.709</td>
+<td>0.71</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>thd lgh</td>
+<td>0.534</td>
+<td>0.537</td>
+<td>0.5686</td>
+<td>0.591</td>
+<td>0.594</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.531</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5319</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5318</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.725</td>
+<td>0.726</td>
+<td>0.736</td>
+<td>0.744</td>
+<td>0.745</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>major</td>
+<td>0.614</td>
+<td>0.6144</td>
+<td>0.6148</td>
+<td>0.6216</td>
+<td>0.622</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>pitch</td>
+<td>0.583</td>
+<td>0.5832</td>
+<td>0.5839</td>
+<td>0.5863</td>
+<td>0.5865</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>nose</td>
+<td>0.302</td>
+<td>0.303</td>
+<td>0.3204</td>
+<td>0.321</td>
+<td>0.322</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>thd lgh</td>
+<td>0.21</td>
+<td>0.211</td>
+<td>0.2191</td>
+<td>0.229</td>
+<td>0.23</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>45 deg</td>
+<td>44.5</td>
+<td>44.55</td>
+<td>45.03</td>
+<td>45.45</td>
+<td>45.5</td>
+<td class="measurement-result-pass">PASS</td>
+</tr></table>
+<br/><h2>Sample 4</h2>
+<table class="part-inspection-table">
+<tr class="part-inspection-table-header">
+<th>Name</th>
+<th>Low Limit</th>
+<th>Low Warning</th>
+<th>Measured</th>
+<th>High Warning</th>
+<th>High Limit</th>
+<th>Result</th>
+</tr>
+<tr><td>thd lgh</td>
+<td>0.54</td>
+<td>0.543</td>
+<td>0.5475</td>
+<td>0.597</td>
+<td>0.6</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.62</td>
+<td>0.61</td>
+<td>0.611</td>
+<td>0.6188</td>
+<td>0.629</td>
+<td>0.63</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>hex lgh</td>
+<td>0.365</td>
+<td>0.366</td>
+<td>0.3692</td>
+<td>0.384</td>
+<td>0.385</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.70</td>
+<td>0.69</td>
+<td>0.691</td>
+<td>0.7015</td>
+<td>0.709</td>
+<td>0.71</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>thd lgh</td>
+<td>0.534</td>
+<td>0.537</td>
+<td>0.5699</td>
+<td>0.591</td>
+<td>0.594</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.531</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5306</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5315</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.725</td>
+<td>0.726</td>
+<td>0.7356</td>
+<td>0.744</td>
+<td>0.745</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>major</td>
+<td>0.614</td>
+<td>0.6144</td>
+<td>0.6169</td>
+<td>0.6216</td>
+<td>0.622</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>pitch</td>
+<td>0.583</td>
+<td>0.5832</td>
+<td>0.5859</td>
+<td>0.5863</td>
+<td>0.5865</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>nose</td>
+<td>0.302</td>
+<td>0.303</td>
+<td>0.3172</td>
+<td>0.321</td>
+<td>0.322</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>thd lgh</td>
+<td>0.21</td>
+<td>0.211</td>
+<td>0.2198</td>
+<td>0.229</td>
+<td>0.23</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>45 deg</td>
+<td>44.5</td>
+<td>44.55</td>
+<td>45.2</td>
+<td>45.45</td>
+<td>45.5</td>
+<td class="measurement-result-pass">PASS</td>
+</tr></table>
+<br/><h2>Sample 5</h2>
+<table class="part-inspection-table">
+<tr class="part-inspection-table-header">
+<th>Name</th>
+<th>Low Limit</th>
+<th>Low Warning</th>
+<th>Measured</th>
+<th>High Warning</th>
+<th>High Limit</th>
+<th>Result</th>
+</tr>
+<tr><td>thd lgh</td>
+<td>0.54</td>
+<td>0.543</td>
+<td>0.5463</td>
+<td>0.597</td>
+<td>0.6</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.62</td>
+<td>0.61</td>
+<td>0.611</td>
+<td>0.6189</td>
+<td>0.629</td>
+<td>0.63</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>hex lgh</td>
+<td>0.365</td>
+<td>0.366</td>
+<td>0.3692</td>
+<td>0.384</td>
+<td>0.385</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.70</td>
+<td>0.69</td>
+<td>0.691</td>
+<td>0.7007</td>
+<td>0.709</td>
+<td>0.71</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>thd lgh</td>
+<td>0.534</td>
+<td>0.537</td>
+<td>0.5691</td>
+<td>0.591</td>
+<td>0.594</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.531</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5308</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5316</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.725</td>
+<td>0.726</td>
+<td>0.7357</td>
+<td>0.744</td>
+<td>0.745</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>major</td>
+<td>0.614</td>
+<td>0.6144</td>
+<td>0.6164</td>
+<td>0.6216</td>
+<td>0.622</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>pitch</td>
+<td>0.583</td>
+<td>0.5832</td>
+<td>0.5838</td>
+<td>0.5863</td>
+<td>0.5865</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>nose</td>
+<td>0.302</td>
+<td>0.303</td>
+<td>0.3207</td>
+<td>0.321</td>
+<td>0.322</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>thd lgh</td>
+<td>0.21</td>
+<td>0.211</td>
+<td>0.2198</td>
+<td>0.229</td>
+<td>0.23</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>45 deg</td>
+<td>44.5</td>
+<td>44.55</td>
+<td>45.32</td>
+<td>45.45</td>
+<td>45.5</td>
+<td class="measurement-result-pass">PASS</td>
+</tr></table>
+<br/><h2>Sample 6</h2>
+<table class="part-inspection-table">
+<tr class="part-inspection-table-header">
+<th>Name</th>
+<th>Low Limit</th>
+<th>Low Warning</th>
+<th>Measured</th>
+<th>High Warning</th>
+<th>High Limit</th>
+<th>Result</th>
+</tr>
+<tr><td>thd lgh</td>
+<td>0.54</td>
+<td>0.543</td>
+<td>0.5465</td>
+<td>0.597</td>
+<td>0.6</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.62</td>
+<td>0.61</td>
+<td>0.611</td>
+<td>0.6176</td>
+<td>0.629</td>
+<td>0.63</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>hex lgh</td>
+<td>0.365</td>
+<td>0.366</td>
+<td>0.3692</td>
+<td>0.384</td>
+<td>0.385</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.70</td>
+<td>0.69</td>
+<td>0.691</td>
+<td>0.705</td>
+<td>0.709</td>
+<td>0.71</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>thd lgh</td>
+<td>0.534</td>
+<td>0.537</td>
+<td>0.5716</td>
+<td>0.591</td>
+<td>0.594</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.531</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5314</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5317</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.725</td>
+<td>0.726</td>
+<td>0.7361</td>
+<td>0.744</td>
+<td>0.745</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>major</td>
+<td>0.614</td>
+<td>0.6144</td>
+<td>0.615</td>
+<td>0.6216</td>
+<td>0.622</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>pitch</td>
+<td>0.583</td>
+<td>0.5832</td>
+<td>0.584</td>
+<td>0.5863</td>
+<td>0.5865</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>nose</td>
+<td>0.302</td>
+<td>0.303</td>
+<td>0.3211</td>
+<td>0.321</td>
+<td>0.322</td>
+<td class="measurement-result-warning">WARN HIGH</td>
+</tr><tr><td>thd lgh</td>
+<td>0.21</td>
+<td>0.211</td>
+<td>0.2189</td>
+<td>0.229</td>
+<td>0.23</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>45 deg</td>
+<td>44.5</td>
+<td>44.55</td>
+<td>45.4</td>
+<td>45.45</td>
+<td>45.5</td>
+<td class="measurement-result-pass">PASS</td>
+</tr></table>
+<br/><h2>Sample 7</h2>
+<table class="part-inspection-table">
+<tr class="part-inspection-table-header">
+<th>Name</th>
+<th>Low Limit</th>
+<th>Low Warning</th>
+<th>Measured</th>
+<th>High Warning</th>
+<th>High Limit</th>
+<th>Result</th>
+</tr>
+<tr><td>thd lgh</td>
+<td>0.54</td>
+<td>0.543</td>
+<td>0.5477</td>
+<td>0.597</td>
+<td>0.6</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.62</td>
+<td>0.61</td>
+<td>0.611</td>
+<td>0.6173</td>
+<td>0.629</td>
+<td>0.63</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>hex lgh</td>
+<td>0.365</td>
+<td>0.366</td>
+<td>0.3693</td>
+<td>0.384</td>
+<td>0.385</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.70</td>
+<td>0.69</td>
+<td>0.691</td>
+<td>0.7009</td>
+<td>0.709</td>
+<td>0.71</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>thd lgh</td>
+<td>0.534</td>
+<td>0.537</td>
+<td>0.5684</td>
+<td>0.591</td>
+<td>0.594</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.531</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5308</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5317</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.725</td>
+<td>0.726</td>
+<td>0.7335</td>
+<td>0.744</td>
+<td>0.745</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>major</td>
+<td>0.614</td>
+<td>0.6144</td>
+<td>0.6152</td>
+<td>0.6216</td>
+<td>0.622</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>pitch</td>
+<td>0.583</td>
+<td>0.5832</td>
+<td>0.5845</td>
+<td>0.5863</td>
+<td>0.5865</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>nose</td>
+<td>0.302</td>
+<td>0.303</td>
+<td>0.3211</td>
+<td>0.321</td>
+<td>0.322</td>
+<td class="measurement-result-warning">WARN HIGH</td>
+</tr><tr><td>thd lgh</td>
+<td>0.21</td>
+<td>0.211</td>
+<td>0.2179</td>
+<td>0.229</td>
+<td>0.23</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>45 deg</td>
+<td>44.5</td>
+<td>44.55</td>
+<td>45.06</td>
+<td>45.45</td>
+<td>45.5</td>
+<td class="measurement-result-pass">PASS</td>
+</tr></table>
+<br/><h2>Sample 8</h2>
+<table class="part-inspection-table">
+<tr class="part-inspection-table-header">
+<th>Name</th>
+<th>Low Limit</th>
+<th>Low Warning</th>
+<th>Measured</th>
+<th>High Warning</th>
+<th>High Limit</th>
+<th>Result</th>
+</tr>
+<tr><td>thd lgh</td>
+<td>0.54</td>
+<td>0.543</td>
+<td>0.5479</td>
+<td>0.597</td>
+<td>0.6</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.62</td>
+<td>0.61</td>
+<td>0.611</td>
+<td>0.6163</td>
+<td>0.629</td>
+<td>0.63</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>hex lgh</td>
+<td>0.365</td>
+<td>0.366</td>
+<td>0.3703</td>
+<td>0.384</td>
+<td>0.385</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.70</td>
+<td>0.69</td>
+<td>0.691</td>
+<td>0.7079</td>
+<td>0.709</td>
+<td>0.71</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>thd lgh</td>
+<td>0.534</td>
+<td>0.537</td>
+<td>0.5744</td>
+<td>0.591</td>
+<td>0.594</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.531</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5309</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5315</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.725</td>
+<td>0.726</td>
+<td>0.7336</td>
+<td>0.744</td>
+<td>0.745</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>major</td>
+<td>0.614</td>
+<td>0.6144</td>
+<td>0.6197</td>
+<td>0.6216</td>
+<td>0.622</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>pitch</td>
+<td>0.583</td>
+<td>0.5832</td>
+<td>0.5835</td>
+<td>0.5863</td>
+<td>0.5865</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>nose</td>
+<td>0.302</td>
+<td>0.303</td>
+<td>0.3221</td>
+<td>0.321</td>
+<td>0.322</td>
+<td class="measurement-result-fail">FAIL HIGH</td>
+</tr><tr><td>thd lgh</td>
+<td>0.21</td>
+<td>0.211</td>
+<td>0.2176</td>
+<td>0.229</td>
+<td>0.23</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>45 deg</td>
+<td>44.5</td>
+<td>44.55</td>
+<td>44.95</td>
+<td>45.45</td>
+<td>45.5</td>
+<td class="measurement-result-pass">PASS</td>
+</tr></table>
+<br/><h2>Sample 9</h2>
+<table class="part-inspection-table">
+<tr class="part-inspection-table-header">
+<th>Name</th>
+<th>Low Limit</th>
+<th>Low Warning</th>
+<th>Measured</th>
+<th>High Warning</th>
+<th>High Limit</th>
+<th>Result</th>
+</tr>
+<tr><td>thd lgh</td>
+<td>0.54</td>
+<td>0.543</td>
+<td>0.5482</td>
+<td>0.597</td>
+<td>0.6</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.62</td>
+<td>0.61</td>
+<td>0.611</td>
+<td>0.6165</td>
+<td>0.629</td>
+<td>0.63</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>hex lgh</td>
+<td>0.365</td>
+<td>0.366</td>
+<td>0.3701</td>
+<td>0.384</td>
+<td>0.385</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.70</td>
+<td>0.69</td>
+<td>0.691</td>
+<td>0.708</td>
+<td>0.709</td>
+<td>0.71</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>thd lgh</td>
+<td>0.534</td>
+<td>0.537</td>
+<td>0.5739</td>
+<td>0.591</td>
+<td>0.594</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>.531</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5308</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.521</td>
+<td>0.522</td>
+<td>0.5315</td>
+<td>0.54</td>
+<td>0.541</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>und cut</td>
+<td>0.725</td>
+<td>0.726</td>
+<td>0.7337</td>
+<td>0.744</td>
+<td>0.745</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>major</td>
+<td>0.614</td>
+<td>0.6144</td>
+<td>0.6195</td>
+<td>0.6216</td>
+<td>0.622</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>pitch</td>
+<td>0.583</td>
+<td>0.5832</td>
+<td>0.5835</td>
+<td>0.5863</td>
+<td>0.5865</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>nose</td>
+<td>0.302</td>
+<td>0.303</td>
+<td>0.3219</td>
+<td>0.321</td>
+<td>0.322</td>
+<td class="measurement-result-warning">WARN HIGH</td>
+</tr><tr><td>thd lgh</td>
+<td>0.21</td>
+<td>0.211</td>
+<td>0.2178</td>
+<td>0.229</td>
+<td>0.23</td>
+<td class="measurement-result-pass">PASS</td>
+</tr><tr><td>45 deg</td>
+<td>44.5</td>
+<td>44.55</td>
+<td>44.95</td>
+<td>45.45</td>
+<td>45.5</td>
+<td class="measurement-result-pass">PASS</td>
+</tr></table>
+<br/></div>
+
+</body>
+</html>

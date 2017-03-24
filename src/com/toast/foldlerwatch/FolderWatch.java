@@ -145,8 +145,8 @@ public class FolderWatch
    {
       String[] receipients = properties.getProperty("mail.to").split(",");
       String host = properties.getProperty("mail.server");
-      String user = properties.getProperty("mail.user");
-      String password = properties.getProperty("mail.password");
+      final String user = properties.getProperty("mail.user");
+      final String password = properties.getProperty("mail.password");
       String port = properties.getProperty("mail.port");
       //String subject = properties.getProperty("mail.subject");
       //String body = properties.getProperty("mail.body");
