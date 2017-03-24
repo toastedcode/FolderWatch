@@ -437,11 +437,10 @@ public class OasisReport
       
       html += "</table>\n";
       
-      html += "<tr>\n" +
-              "<label>Comments</label>\n" +
-              "</br>\n" +
-              "<textarea disabled>" + getComments() + "</textarea>\n" +
-              "</tr>\n";
+      html += "<div>\n" +
+              "<div><label>Comments</label></div>\n" +
+              "<div><textarea disabled>" + getComments() + "</textarea></div>\n" +
+              "</div>\n";
       
       html += "</table>\n";
       
