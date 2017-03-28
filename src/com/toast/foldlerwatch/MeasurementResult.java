@@ -27,7 +27,7 @@ public enum MeasurementResult
    
    public boolean isFailed()
    {
-      return ((this == FAIL_LOW) || (this == FAIL_HIGH));
+      return ((this == FAIL_LOW) || (this == FAIL_HIGH) || (this == FAIL_NULL));
             
    }
    

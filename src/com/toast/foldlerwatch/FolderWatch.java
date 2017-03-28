@@ -136,7 +136,7 @@ public class FolderWatch
          }
          catch (IOException e)
          {
-            
+            System.out.format("Exception: %s%n", e.toString());
          }
       }
    }
@@ -274,7 +274,7 @@ public class FolderWatch
    static String createEmailSubject(OasisReport report)
    {
       String subject = 
-            String.format("New Oasis report: Inspector %s, machine %s, %d parts, %.2f%% efficiency, 0 failures",
+            String.format("Inspector %s, machine %s, %d parts, %.2f%% efficiency, %d failures",
                           report.getEmployeeNumber(),
                           report.getMachineNumber(),
                           report.getPartCount(),

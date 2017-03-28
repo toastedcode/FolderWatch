@@ -29,7 +29,16 @@ public class PartMeasurement
             else
             {
                MeasurementType type = MeasurementType.values()[(i - FIRST_MEASUREMENT_INDEX)];
-               data.put(type, Double.valueOf(tokens[i]));
+               
+               try
+               {
+                  Double value = Double.parseDouble(tokens[i]);
+                  data.put(type, value);
+               }
+               catch (NumberFormatException e)
+               {
+                  data.put(type,  Double.NaN);
+               }
             }
          }
          

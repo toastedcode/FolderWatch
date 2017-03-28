@@ -124,7 +124,14 @@ public class OasisReport
       
       if (userFields.containsKey(UserFieldType.PART_COUNT.ordinal()))
       {
-         value = Integer.parseInt(userFields.get(UserFieldType.PART_COUNT.ordinal()).getValue());
+         try
+         {
+            value = Integer.parseInt(userFields.get(UserFieldType.PART_COUNT.ordinal()).getValue());
+         }
+         catch (NumberFormatException e)
+         {
+            value = 0;
+         }
       }
       
       return (value);
@@ -136,7 +143,14 @@ public class OasisReport
       
       if (userFields.containsKey(UserFieldType.SAMPLE_SIZE.ordinal()))
       {
-         value = Integer.parseInt(userFields.get(UserFieldType.SAMPLE_SIZE.ordinal()).getValue());
+         try
+         {
+            value = Integer.parseInt(userFields.get(UserFieldType.SAMPLE_SIZE.ordinal()).getValue());
+         }
+         catch (NumberFormatException e)
+         {
+            value = 0;
+         }
       }
       
       return (value);
@@ -180,7 +194,7 @@ public class OasisReport
          }
          catch (ParseException e)
          {
-            // TODO
+            date = null;
          }      
       }
       
@@ -216,7 +230,14 @@ public class OasisReport
          string = string.replaceAll("[^\\d.]", "");
          
          // Convert to Double.
-         value = Double.parseDouble(string);
+         try
+         {
+            value = Double.parseDouble(string);
+         }
+         catch (NumberFormatException e)
+         {
+            value = 0.0;
+         }
       }
       
       return (value);
@@ -402,9 +423,15 @@ public class OasisReport
          else if (index == TIME_INDEX)
          {
             Date date = getDate();
-            SimpleDateFormat formatter = new SimpleDateFormat("hh:mm:ss a");
+            String dateString = "Unknown";
+            if (date != null)
+            {
+               SimpleDateFormat formatter = new SimpleDateFormat("hh:mm:ss a");
+               dateString = formatter.format(date);
+            }
+
             html += "<td><label>Time</label></td>\n";
-            html += "<td><input type=\"text\" value=\"" + formatter.format(date) + "\" disabled/></td>\n";
+            html += "<td><input type=\"text\" value=\"" + dateString + "\" disabled/></td>\n";
          }
          else
          {
