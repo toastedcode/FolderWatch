@@ -1,0 +1,292 @@
+<html>
+
+<head>
+<style>
+
+table.operator-summary-table
+{
+   border-collapse: collapse;
+   width: 300px;
+}
+
+table.report-summary-table
+{
+   margin: auto;
+}
+
+th, td
+{
+   text-align: left;
+   padding: 8px;
+   width: 110px;
+}
+
+tr:nth-child(even)
+{
+   background-color: #f2f2f2
+}
+
+input[type="text"]
+{
+   width: 120px;
+}
+
+th
+{
+   background-color: #11418e;
+   color: white;
+}
+
+tr.missing-report
+{
+   background-color: #ffef66;
+}
+
+div.machine-number-container
+{
+   margin-top: 5px;
+   margin-bottom: 5px;
+   font-weight: bold;
+}
+
+div.card
+{
+  background: #fff;
+  border-radius: 2px;
+  display: inline-block;
+  margin: 1rem;
+  position: relative;
+  width: 400px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  padding: 5px 5px 5px 5px;
+}
+
+div.manager-notes-container > *
+{
+   margin: 5px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="email-prologue-container">
+</div>
+
+<div id="operator-summaries-container">
+<table class="operator-summary-table">
+<tr>
+<td><label>Operator #:</label></td>
+<td><input type="text" disabled value="370"/></td>
+</tr>
+<tr>
+<td><label>Operator name:</label></td>
+<td><input type="text" disabled value=""/></td>
+</tr>
+<tr>
+<td><label>Report date:</label></td>
+<td><input type="text" disabled value="04/04, 04/05"/></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+<div class="card">
+<div class="machine-number-container">Machine#: 802</div>
+<table class="report-summary-table">
+<tr class="report-summary-table-header">
+<th>Time</th>
+<th>Quantity</th>
+<th>Efficiency</th>
+</tr>
+<tr>
+<td>04/04 03:16 PM</td>
+<td>0</td>
+<td>0.0%</td>
+</tr>
+<tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr><tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr><tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr></table>
+</div>
+</td>
+<td>
+<div class="manager-notes-container">
+<div><label>Parts Count:</label><input class="parts-count-input" type="text"/></div>
+<br/>
+<label>Comments:</label>
+<br/>
+<textarea rows="10" cols="50" class="comments-input"></textarea>
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="card">
+<div class="machine-number-container">Machine#: 806</div>
+<table class="report-summary-table">
+<tr class="report-summary-table-header">
+<th>Time</th>
+<th>Quantity</th>
+<th>Efficiency</th>
+</tr>
+<tr>
+<td>04/05 03:42 PM</td>
+<td>275</td>
+<td>93.0%</td>
+</tr>
+<tr>
+<td>04/05 12:08 AM</td>
+<td>2250</td>
+<td>68.0%</td>
+</tr>
+<tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr><tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr></table>
+</div>
+</td>
+<td>
+<div class="manager-notes-container">
+<div><label>Parts Count:</label><input class="parts-count-input" type="text"/></div>
+<br/>
+<label>Comments:</label>
+<br/>
+<textarea rows="10" cols="50" class="comments-input"></textarea>
+</div>
+</td>
+</tr>
+</table>
+<table class="operator-summary-table">
+<tr>
+<td><label>Operator #:</label></td>
+<td><input type="text" disabled value="372"/></td>
+</tr>
+<tr>
+<td><label>Operator name:</label></td>
+<td><input type="text" disabled value=""/></td>
+</tr>
+<tr>
+<td><label>Report date:</label></td>
+<td><input type="text" disabled value="03/27, 04/05"/></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+<div class="card">
+<div class="machine-number-container">Machine#: 622</div>
+<table class="report-summary-table">
+<tr class="report-summary-table-header">
+<th>Time</th>
+<th>Quantity</th>
+<th>Efficiency</th>
+</tr>
+<tr>
+<td>03/27 03:55 PM</td>
+<td>0</td>
+<td>0.0%</td>
+</tr>
+<tr>
+<td>03/27 09:23 PM</td>
+<td>1700</td>
+<td>38.0%</td>
+</tr>
+<tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr><tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr></table>
+</div>
+</td>
+<td>
+<div class="manager-notes-container">
+<div><label>Parts Count:</label><input class="parts-count-input" type="text"/></div>
+<br/>
+<label>Comments:</label>
+<br/>
+<textarea rows="10" cols="50" class="comments-input"></textarea>
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="card">
+<div class="machine-number-container">Machine#: 821</div>
+<table class="report-summary-table">
+<tr class="report-summary-table-header">
+<th>Time</th>
+<th>Quantity</th>
+<th>Efficiency</th>
+</tr>
+<tr>
+<td>04/05 03:22 PM</td>
+<td>18</td>
+<td>0.0%</td>
+</tr>
+<tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr><tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr><tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr></table>
+</div>
+</td>
+<td>
+<div class="manager-notes-container">
+<div><label>Parts Count:</label><input class="parts-count-input" type="text"/></div>
+<br/>
+<label>Comments:</label>
+<br/>
+<textarea rows="10" cols="50" class="comments-input"></textarea>
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="card">
+<div class="machine-number-container">Machine#: 624</div>
+<table class="report-summary-table">
+<tr class="report-summary-table-header">
+<th>Time</th>
+<th>Quantity</th>
+<th>Efficiency</th>
+</tr>
+<tr>
+<td>03/27 09:08 PM</td>
+<td>450</td>
+<td>10.0%</td>
+</tr>
+<tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr><tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr><tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr></table>
+</div>
+</td>
+<td>
+<div class="manager-notes-container">
+<div><label>Parts Count:</label><input class="parts-count-input" type="text"/></div>
+<br/>
+<label>Comments:</label>
+<br/>
+<textarea rows="10" cols="50" class="comments-input"></textarea>
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="card">
+<div class="machine-number-container">Machine#: 625</div>
+<table class="report-summary-table">
+<tr class="report-summary-table-header">
+<th>Time</th>
+<th>Quantity</th>
+<th>Efficiency</th>
+</tr>
+<tr>
+<td>03/27 09:33 PM</td>
+<td>1700</td>
+<td>68.0%</td>
+</tr>
+<tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr><tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr><tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr></table>
+</div>
+</td>
+<td>
+<div class="manager-notes-container">
+<div><label>Parts Count:</label><input class="parts-count-input" type="text"/></div>
+<br/>
+<label>Comments:</label>
+<br/>
+<textarea rows="10" cols="50" class="comments-input"></textarea>
+</div>
+</td>
+</tr>
+</table>
+</div>
+
+</body>
+
+</html>

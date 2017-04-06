@@ -1,4 +1,4 @@
-package com.toast.foldlerwatch;
+package com.toast.foldlerwatch.oasisreport;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -495,10 +495,12 @@ public class OasisReport
    
    private String getReportTemplate() throws IOException
    {
+      final String TEMPLATE_FILENAME = "template.html"; 
+      
       String html = "";
       
       // Open a report file.
-      File file = new File("template.html");
+      File file = new File(TEMPLATE_FILENAME);
       
       // Create a BufferedReader object.
       FileInputStream fileInputStream = new FileInputStream(file);

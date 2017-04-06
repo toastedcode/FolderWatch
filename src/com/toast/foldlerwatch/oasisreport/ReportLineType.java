@@ -1,4 +1,4 @@
-package com.toast.foldlerwatch;
+package com.toast.foldlerwatch.oasisreport;
 
 // Oasis report line type examples:
 //

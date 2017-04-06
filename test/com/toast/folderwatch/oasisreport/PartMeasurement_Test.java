@@ -1,4 +1,4 @@
-package com.toast.folderwatch;
+package com.toast.folderwatch.oasisreport;
 
 import static org.junit.Assert.*;
 
@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.toast.foldlerwatch.MeasurementResult;
-import com.toast.foldlerwatch.MeasurementType;
-import com.toast.foldlerwatch.PartMeasurement;
+import com.toast.foldlerwatch.oasisreport.MeasurementResult;
+import com.toast.foldlerwatch.oasisreport.MeasurementType;
+import com.toast.foldlerwatch.oasisreport.PartMeasurement;
 
 public class PartMeasurement_Test
 {

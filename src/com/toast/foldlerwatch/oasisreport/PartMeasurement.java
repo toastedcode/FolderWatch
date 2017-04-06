@@ -1,4 +1,4 @@
-package com.toast.foldlerwatch;
+package com.toast.foldlerwatch.oasisreport;
 
 import java.util.HashMap;
 import java.util.Map;

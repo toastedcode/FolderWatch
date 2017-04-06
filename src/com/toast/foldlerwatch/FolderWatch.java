@@ -1,12 +1,19 @@
 package com.toast.foldlerwatch;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.String;
 import java.nio.file.FileSystems;
+import java.nio.file.FileVisitResult;
+import java.nio.file.FileVisitor;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
 import java.nio.file.WatchService;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,6 +29,10 @@ import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
+import javax.mail.util.ByteArrayDataSource;
+
+import com.toast.foldlerwatch.oasisreport.OasisReport;
+import com.toast.foldlerwatch.summaryreport.SummaryReport;
 
 public class FolderWatch
 {
@@ -29,11 +40,80 @@ public class FolderWatch
    {
       try
       {
-         watchService = FileSystems.getDefault().newWatchService();
-         
          loadProperties();
          
+         switch (args[0])
+         {
+            case "-summaryreport":
+            {
+               summaryReport();
+               break;
+            }
+            
+            case "-folderwatch":
+            default:
+            {
+               folderWatch();
+               break;
+            }
+            
+         }
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+      }
+   }
+   
+   public static void summaryReport()
+   {
+      // Get all the watched folders from the properties file.
+      String[] folders = properties.getProperty("folders").split(",");
+      
+      for (String folder : folders)
+      {
+         // Create a Path object from the path string.
+         watchedPath = FileSystems.getDefault().getPath(folder);
+         
+         final SummaryReport summaryReport = new SummaryReport();
+         
+         FileVisitor<Path> fv = new SimpleFileVisitor<Path>()
+         {
+           @Override
+           public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+               throws IOException
+           {
+              OasisReport report = new OasisReport();
+              
+              // Parse
+              assertTrue(report.parse(file.toFile()));
+              
+              // Add to summary.
+              summaryReport.addReport(report);
+              
+              return (FileVisitResult.CONTINUE);
+           }
+         };
 
+         try
+         {
+            Files.walkFileTree(watchedPath, fv);
+         }
+         catch (IOException e)
+         {
+            e.printStackTrace();
+         }
+         
+         emailNotification(watchedPath, summaryReport);
+      }
+   }
+   
+   public static void folderWatch()
+   {
+      try
+      {
+         watchService = FileSystems.getDefault().newWatchService();
+         
          // Get all the watched folders from the properties file.
          String[] folders = properties.getProperty("folders").split(",");
          
@@ -50,7 +130,7 @@ public class FolderWatch
       }
       catch (IOException e)
       {
-         System.out.format("Exception: %s%n", e);
+         e.printStackTrace();
       }
    }
    
@@ -139,6 +219,83 @@ public class FolderWatch
             System.out.format("Exception: %s%n", e.toString());
          }
       }
+   }
+   
+   static private void emailNotification(Path path, SummaryReport report)
+   {
+      String[] receipients = properties.getProperty("mail.to").split(",");
+      String host = properties.getProperty("mail.server");
+      final String user = properties.getProperty("mail.user");
+      final String password = properties.getProperty("mail.password");
+      String port = properties.getProperty("mail.port");
+      //String subject = properties.getProperty("mail.subject");
+      //String body = properties.getProperty("mail.body");
+      
+      String subject = createEmailSubject(report);
+      String body = createEmailBody(path, report);
+
+      Properties mailProperties = new Properties();  
+      mailProperties.put("mail.smtp.auth", "true");
+      mailProperties.put("mail.smtp.starttls.enable", "true");
+      mailProperties.put("mail.smtp.host", host);
+      mailProperties.put("mail.smtp.port", port);
+      mailProperties.put("mail.smtp.socketFactory.port", port);
+      mailProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+
+      Session session = Session.getInstance(
+         mailProperties,
+         new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+               return new PasswordAuthentication(user, password);
+            }
+         });
+          
+      // Compose the message  
+      try
+      {  
+          MimeMessage message = new MimeMessage(session);
+          
+          for (String receipient : receipients)
+          {
+             message.addRecipient(Message.RecipientType.TO, new InternetAddress(receipient));
+          }
+          
+          message.setFrom(new InternetAddress(user));  
+ 
+          message.setSubject(subject);  
+          message.setText(body);
+          
+          // Create a multipart message.
+          Multipart multipart = new MimeMultipart();
+          
+          // Part 1: Message body.
+          BodyPart messageBodyPart = new MimeBodyPart();
+          messageBodyPart.setContent(body , "text/html");  // Create HTML content.
+          multipart.addBodyPart(messageBodyPart);
+
+          // Part 2:  attachment
+          SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yy");
+          String dateString = formatter.format(new Date());
+          String summaryFilename = "OasisInspectionSummary_" + path.getFileName().toString() + "_" + dateString + ".html";                
+          messageBodyPart = new MimeBodyPart();
+          DataSource source = new ByteArrayDataSource(body.getBytes(), "text/html");
+          messageBodyPart.setDataHandler(new DataHandler(source));
+          messageBodyPart.setFileName(summaryFilename);
+          multipart.addBodyPart(messageBodyPart);
+
+          // Send the complete message parts
+          message.setContent(multipart);
+         
+         // Send the message.  
+         Transport.send(message);  
+          
+         System.out.println("Message was sent successfully.");  
+           
+       }
+       catch (MessagingException e)
+       {
+          e.printStackTrace();
+       }      
    }
    
    static private void emailNotification(Path path, OasisReport report)
@@ -291,6 +448,33 @@ public class FolderWatch
       String body = report.toHtml();
       
       String prologue = String.format("A new Oasis inspection report has been submitted in: <br/>%s", path.toString());
+      
+      StringBuilder stringBuilder = new StringBuilder(body);
+      
+      int pos = stringBuilder.indexOf(EMAIL_PROLOGUE_DIV) + EMAIL_PROLOGUE_DIV.length() + 1;  // +1 for \n
+      
+      stringBuilder.insert(pos, prologue);
+      
+      body = stringBuilder.toString();
+      
+      return (body);
+   }
+   
+   static String createEmailSubject(SummaryReport report)
+   {
+      String subject = 
+            String.format("New Oasis shift summary report");
+      
+      return (subject);
+   }
+   
+   static String createEmailBody(Path path, SummaryReport report)
+   {
+      final String EMAIL_PROLOGUE_DIV = "<div id=\"email-prologue-container\">";
+      
+      String body = report.toHtml();
+      
+      String prologue = String.format("A new Oasis shift summary report has been created from folder: \"%s\"", path.toString());
       
       StringBuilder stringBuilder = new StringBuilder(body);
       

@@ -1,4 +1,4 @@
-package com.toast.folderwatch;
+package com.toast.folderwatch.oasisreport;
 
 import static org.junit.Assert.*;
 
@@ -16,7 +16,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 import org.junit.Test;
 
-import com.toast.foldlerwatch.OasisReport;
+import com.toast.foldlerwatch.oasisreport.OasisReport;
 
 public class OasisReport_Test
 {
