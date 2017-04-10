@@ -2,6 +2,7 @@ package com.toast.foldlerwatch.summaryreport;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -49,6 +50,8 @@ public class MachineSummary
       //
       // Oasis reports.
       //
+      
+      Collections.sort(oasisReports);
       
       SimpleDateFormat formatter = new SimpleDateFormat("MM/dd hh:mm a");
       
@@ -106,5 +109,5 @@ public class MachineSummary
    
    private String machineNumber;
    
-   private List<OasisReport> oasisReports = new ArrayList<OasisReport>();
+   private ArrayList<OasisReport> oasisReports = new ArrayList<OasisReport>();
 }

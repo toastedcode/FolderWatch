@@ -9,13 +9,14 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class OasisReport
+public class OasisReport implements Comparable<OasisReport>
 {
    public OasisReport()
    {
@@ -527,4 +528,13 @@ public class OasisReport
    private List<PartInspection> inspections = new ArrayList<PartInspection>();
    
    private PartInspection partInspection;
+
+   @Override
+   public int compareTo(OasisReport rhs)
+   {
+      long lhsDate = getDate().getTime();
+      long rhsDate = rhs.getDate().getTime();
+      
+      return ((lhsDate > rhsDate) ? 1 : (lhsDate < rhsDate) ? -1 : 0);
+   }
 }

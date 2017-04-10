@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.toast.foldlerwatch.Employee;
 import com.toast.foldlerwatch.oasisreport.OasisReport;
 
 public class OperatorSummary
@@ -64,6 +65,20 @@ public class OperatorSummary
       
       // Construct employee names string.
       String employeeNamesString = "";
+      for (String employeeNumber : employeeNumbers)
+      {
+         Employee employee = Employee.getEmployee(employeeNumber);
+         
+         if (employee != null)
+         {
+            employeeNamesString += employee.getFullName();
+            if (index < (employeeNumbers.size() - 1))
+            {
+               employeeNamesString += ", ";
+               index++;
+            }
+         }
+      }
       
       // Construct report dates string.
       String reportDatesString = "";
