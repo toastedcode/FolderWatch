@@ -4,12 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import com.toast.foldlerwatch.oasisreport.MeasurementType;
 import com.toast.foldlerwatch.oasisreport.OasisReport;
 
-public class MachineSummary
+class MachineSummary
 {
    public final int EXPECTED_REPORTS = 4;
    
@@ -18,12 +18,40 @@ public class MachineSummary
       this.machineNumber = machineNumber;
    }
    
-   String getMachineNumber()
+   public String getMachineNumber()
    {
       return (machineNumber);
    }
    
-   void addReport(OasisReport report)
+   public String getPartNumber()
+   {
+      Set<String> partNumbers = new HashSet<String>();
+      
+      String partNumber = "";
+      
+      for (OasisReport report : oasisReports)
+      {
+         partNumbers.add(report.getPartNumber());
+      }
+      
+      int index = 0;
+      for (String partNum : partNumbers)
+      {
+         partNumber += partNum;
+         
+         if ((partNumbers.size() > 1) &&
+             (index < (partNumbers.size() - 1)))
+         {
+            partNumber += ", ";
+         }
+         
+         index++;
+      }
+      
+      return (partNumber);
+   }
+   
+   public void addReport(OasisReport report)
    {
       oasisReports.add(report);
    }
@@ -37,14 +65,18 @@ public class MachineSummary
       html += "<div class=\"card\">\n";
       
       html += "<div class=\"machine-number-container\">Machine#: " + getMachineNumber() + "</div>\n";
+      
+      html += "<div class=\"machine-number-container\">Part#: " + getPartNumber() + "</div>\n";
 
       html += "<table class=\"report-summary-table\">\n";
       
       // Table heading.
       html += "<tr class=\"report-summary-table-header\">\n";
-      html += "<th>Time</th>\n";
-      html += "<th>Quantity</th>\n";
-      html += "<th>Efficiency</th>\n";
+      html += "<th class=\"part-number-column\">Part#</th>\n";
+      html += "<th class=\"time-column\">Time</th>\n";
+      html += "<th class=\"quantity-column\">Quantity</th>\n";
+      html += "<th class=\"failures-column\">Failures</th>\n";
+      html += "<th class=\"efficiency-column\">Efficiency</th>\n";
       html += "</tr>\n";
       
       //
@@ -59,13 +91,19 @@ public class MachineSummary
       {
          html += "<tr>\n";
          
+         // Part Number
+         html += "<td>" + report.getPartNumber() + "</td>\n";
+         
          // Time
          Date date = report.getDate();
          String timeString = formatter.format(date);
          html += "<td>" + timeString + "</td>\n";
          
-         // Quantity
+         // Part Count
          html += "<td>" + report.getPartCount() + "</td>\n";
+         
+         // Quantity
+         html += "<td>" + report.getFailureCount() + "</td>\n";
          
          // Efficiency
          html += "<td>" + report.getEfficiency() + "%</td>\n";
@@ -81,7 +119,7 @@ public class MachineSummary
       
       for (int i = 0; i < missingReports; i++)
       {
-         html += "<tr class=\"missing-report\"><td>Missing Check</td><td></td><td></td></tr>";
+         html += "<tr class=\"missing-report\"><td>Missing Check</td><td></td><td></td><td></td><td></td></tr>";
       }
       
       html += "</table>\n";

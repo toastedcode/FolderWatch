@@ -12,13 +12,14 @@ table.operator-summary-table
 table.report-summary-table
 {
    margin: auto;
+   width: 500px;
 }
 
 th, td
 {
    text-align: left;
    padding: 8px;
-   width: 110px;
+   #width: 110px;
 }
 
 tr:nth-child(even)
@@ -35,6 +36,31 @@ th
 {
    background-color: #11418e;
    color: white;
+}
+
+th.part-number-column
+{
+   width: 18%;
+}
+
+th.time-column
+{
+   width: 28%;
+}
+
+th.quantity-column
+{
+   width: 18%;
+}
+
+th.failures-column
+{
+   width: 18%;
+}
+
+th.efficiency-column
+{
+   width: 18%;
 }
 
 tr.missing-report
@@ -56,7 +82,7 @@ div.card
   display: inline-block;
   margin: 1rem;
   position: relative;
-  width: 400px;
+  width: 525px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   padding: 5px 5px 5px 5px;
 }
@@ -96,29 +122,40 @@ div.manager-notes-container > *
 <td>
 <div class="card">
 <div class="machine-number-container">Machine#: 802</div>
+<div class="machine-number-container">Part#: M6498A, M6498B</div>
 <table class="report-summary-table">
 <tr class="report-summary-table-header">
-<th>Time</th>
-<th>Quantity</th>
-<th>Efficiency</th>
+<th class="part-number-column">Part#</th>
+<th class="time-column">Time</th>
+<th class="quantity-column">Quantity</th>
+<th class="failures-column">Failures</th>
+<th class="efficiency-column">Efficiency</th>
 </tr>
 <tr>
+<td>M6498A</td>
 <td>04/06 11:01 PM</td>
 <td>3000</td>
+<td>0</td>
 <td>85.0%</td>
 </tr>
 <tr>
-<td>04/07 02:00 AM</td>
-<td>4000</td>
-<td>85.0%</td>
-</tr>
-<tr>
+<td>M6498B</td>
 <td>04/06 11:04 PM</td>
+<td>0</td>
 <td>0</td>
 <td>0.0%</td>
 </tr>
 <tr>
+<td>M6498A</td>
+<td>04/07 02:00 AM</td>
+<td>4000</td>
+<td>0</td>
+<td>85.0%</td>
+</tr>
+<tr>
+<td>M6498B</td>
 <td>04/07 02:02 AM</td>
+<td>0</td>
 <td>0</td>
 <td>0.0%</td>
 </tr>
@@ -139,29 +176,40 @@ div.manager-notes-container > *
 <td>
 <div class="card">
 <div class="machine-number-container">Machine#: 806</div>
+<div class="machine-number-container">Part#: M6459A, M6459B</div>
 <table class="report-summary-table">
 <tr class="report-summary-table-header">
-<th>Time</th>
-<th>Quantity</th>
-<th>Efficiency</th>
+<th class="part-number-column">Part#</th>
+<th class="time-column">Time</th>
+<th class="quantity-column">Quantity</th>
+<th class="failures-column">Failures</th>
+<th class="efficiency-column">Efficiency</th>
 </tr>
 <tr>
+<td>M6459A</td>
 <td>04/06 10:54 PM</td>
 <td>2400</td>
+<td>0</td>
 <td>80.0%</td>
 </tr>
 <tr>
-<td>04/07 01:54 AM</td>
-<td>3410</td>
-<td>78.0%</td>
-</tr>
-<tr>
+<td>M6459B</td>
 <td>04/06 10:56 PM</td>
+<td>0</td>
 <td>0</td>
 <td>0.0%</td>
 </tr>
 <tr>
+<td>M6459A</td>
+<td>04/07 01:54 AM</td>
+<td>3410</td>
+<td>0</td>
+<td>78.0%</td>
+</tr>
+<tr>
+<td>M6459B</td>
 <td>04/07 01:56 AM</td>
+<td>0</td>
 <td>0</td>
 <td>0.0%</td>
 </tr>
@@ -182,23 +230,30 @@ div.manager-notes-container > *
 <td>
 <div class="card">
 <div class="machine-number-container">Machine#: 828</div>
+<div class="machine-number-container">Part#: M6732</div>
 <table class="report-summary-table">
 <tr class="report-summary-table-header">
-<th>Time</th>
-<th>Quantity</th>
-<th>Efficiency</th>
+<th class="part-number-column">Part#</th>
+<th class="time-column">Time</th>
+<th class="quantity-column">Quantity</th>
+<th class="failures-column">Failures</th>
+<th class="efficiency-column">Efficiency</th>
 </tr>
 <tr>
+<td>M6732</td>
 <td>04/06 11:09 PM</td>
 <td>3200</td>
+<td>0</td>
 <td>80.0%</td>
 </tr>
 <tr>
+<td>M6732</td>
 <td>04/07 02:07 AM</td>
 <td>4125</td>
+<td>0</td>
 <td>75.0%</td>
 </tr>
-<tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr><tr class="missing-report"><td>Missing Check</td><td></td><td></td></tr></table>
+<tr class="missing-report"><td>Missing Check</td><td></td><td></td><td></td><td></td></tr><tr class="missing-report"><td>Missing Check</td><td></td><td></td><td></td><td></td></tr></table>
 </div>
 </td>
 <td>
