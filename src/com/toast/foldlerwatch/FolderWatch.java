@@ -42,21 +42,28 @@ public class FolderWatch
       {
          loadProperties();
          
-         switch (args[0])
+         if (args.length > 0)
          {
-            case "-summaryreport":
+            switch (args[0])
             {
-               summaryReport();
-               break;
+               case "-summaryreport":
+               {
+                  summaryReport();
+                  break;
+               }
+               
+               case "-folderwatch":
+               default:
+               {
+                  folderWatch();
+                  break;
+               }
+               
             }
-            
-            case "-folderwatch":
-            default:
-            {
-               folderWatch();
-               break;
-            }
-            
+         }
+         else
+         {
+            folderWatch();
          }
       }
       catch (IOException e)

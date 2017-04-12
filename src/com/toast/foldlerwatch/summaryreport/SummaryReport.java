@@ -51,9 +51,17 @@ public class SummaryReport
          
          String operatorSummariesHtml = "";
          
+         int index = 0;
          for (OperatorSummary summary : operatorSummaries.values())
          {
             operatorSummariesHtml += summary.toHtml();
+            
+            if (index < (operatorSummaries.size() - 1))
+            {
+               operatorSummariesHtml += "<br/><hr><br/>";
+            }
+            
+            index++;
          }
          
          // 
