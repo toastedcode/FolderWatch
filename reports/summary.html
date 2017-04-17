@@ -19,7 +19,6 @@ th, td
 {
    text-align: left;
    padding: 8px;
-   #width: 110px;
 }
 
 tr:nth-child(even)
@@ -66,6 +65,11 @@ th.efficiency-column
 tr.missing-report
 {
    background-color: #ffef66;
+}
+
+tr.missing-report > td
+{
+   text-align: center;
 }
 
 div.machine-number-container
@@ -159,7 +163,7 @@ div.manager-notes-container > *
 <td>0</td>
 <td>0.0%</td>
 </tr>
-</table>
+<tr class="missing-report"><td colspan="5" align="center">Missing 4 checks</td></tr></table>
 </div>
 </td>
 <td>
@@ -213,7 +217,7 @@ div.manager-notes-container > *
 <td>0</td>
 <td>0.0%</td>
 </tr>
-</table>
+<tr class="missing-report"><td colspan="5" align="center">Missing 4 checks</td></tr></table>
 </div>
 </td>
 <td>
@@ -253,7 +257,7 @@ div.manager-notes-container > *
 <td>0</td>
 <td>75.0%</td>
 </tr>
-<tr class="missing-report"><td>Missing Check</td><td></td><td></td><td></td><td></td></tr><tr class="missing-report"><td>Missing Check</td><td></td><td></td><td></td><td></td></tr></table>
+<tr class="missing-report"><td colspan="5" align="center">Missing 2 checks</td></tr></table>
 </div>
 </td>
 <td>

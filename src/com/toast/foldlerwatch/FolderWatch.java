@@ -1,19 +1,14 @@
 package com.toast.foldlerwatch;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.String;
+import java.nio.file.DirectoryStream;
 import java.nio.file.FileSystems;
-import java.nio.file.FileVisitResult;
-import java.nio.file.FileVisitor;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
 import java.nio.file.WatchService;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -84,27 +79,23 @@ public class FolderWatch
          
          final SummaryReport summaryReport = new SummaryReport();
          
-         FileVisitor<Path> fv = new SimpleFileVisitor<Path>()
+         try (DirectoryStream<Path> stream = Files.newDirectoryStream(watchedPath))
          {
-           @Override
-           public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-               throws IOException
-           {
-              OasisReport report = new OasisReport();
-              
-              // Parse
-              assertTrue(report.parse(file.toFile()));
-              
-              // Add to summary.
-              summaryReport.addReport(report);
-              
-              return (FileVisitResult.CONTINUE);
-           }
-         };
-
-         try
-         {
-            Files.walkFileTree(watchedPath, fv);
+            // Loop through all files in the directory.
+            for (Path file: stream)
+            {
+               // Look for Oasis report files.
+               if (file.getFileName().toString().endsWith(".rpt"))
+               {
+                  OasisReport report = new OasisReport();
+                  
+                  // Parse
+                  report.parse(file.toFile());
+                  
+                  // Add to summary.
+                  summaryReport.addReport(report);
+               }
+            }
          }
          catch (IOException e)
          {

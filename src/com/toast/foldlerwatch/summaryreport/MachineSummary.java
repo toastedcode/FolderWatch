@@ -11,7 +11,8 @@ import com.toast.foldlerwatch.oasisreport.OasisReport;
 
 class MachineSummary
 {
-   public final int EXPECTED_REPORTS = 4;
+   public final int SMALL_PART_EXPECTED_REPORTS = 4;
+   public final int LARGE_PART_EXPECTED_REPORTS = 8;
    
    public MachineSummary(String machineNumber)
    {
@@ -115,11 +116,13 @@ class MachineSummary
       // Missing reports.
       //
       
-      int missingReports = (oasisReports.size() < EXPECTED_REPORTS) ? (EXPECTED_REPORTS - oasisReports.size()) : 0;
+      int expectedReports = isLargePart() ? LARGE_PART_EXPECTED_REPORTS : SMALL_PART_EXPECTED_REPORTS;
       
-      for (int i = 0; i < missingReports; i++)
+      int missingReports = (oasisReports.size() < expectedReports) ? (expectedReports - oasisReports.size()) : 0;
+      
+      if (missingReports > 0)
       {
-         html += "<tr class=\"missing-report\"><td>Missing Check</td><td></td><td></td><td></td><td></td></tr>";
+         html += "<tr class=\"missing-report\"><td colspan=\"5\" align=\"center\">Missing " + missingReports + " checks</td></tr>";
       }
       
       html += "</table>\n";
@@ -143,6 +146,28 @@ class MachineSummary
             + "</td>\n";
       
       return (html);
+   }
+   
+   private boolean isLargePart()
+   {
+      boolean isLargePart = false;
+      
+      final String PART_A = "A";
+      final String PART_B = "B";
+      
+      for (OasisReport report : oasisReports)
+      {
+         String partNumber = report.getPartNumber();
+         
+         if ((partNumber.toUpperCase().endsWith(PART_A)) || 
+             (partNumber.toUpperCase().endsWith(PART_B)))
+         {
+            isLargePart = true;
+            break;
+         }
+      }
+      
+      return (isLargePart);
    }
    
    private String machineNumber;
