@@ -102,7 +102,10 @@ public class FolderWatch
             e.printStackTrace();
          }
          
-         emailNotification(watchedPath, summaryReport);
+         if (summaryReport.size() > 0)
+         {
+            emailNotification(watchedPath, summaryReport);
+         }
       }
    }
    

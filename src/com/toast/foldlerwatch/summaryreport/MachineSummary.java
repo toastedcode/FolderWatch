@@ -122,7 +122,8 @@ class MachineSummary
       
       if (missingReports > 0)
       {
-         html += "<tr class=\"missing-report\"><td colspan=\"5\" align=\"center\">Missing " + missingReports + " checks</td></tr>";
+         String checks = (missingReports > 1) ? "checks" : "check";
+         html += "<tr class=\"missing-report\"><td colspan=\"5\" align=\"center\">Missing " + missingReports + " " + checks + "</td></tr>";
       }
       
       html += "</table>\n";

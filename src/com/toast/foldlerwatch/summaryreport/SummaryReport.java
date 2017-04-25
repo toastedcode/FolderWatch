@@ -30,6 +30,11 @@ public class SummaryReport
       operatorSummaries.get(employeeNumber).addReport(report);
    }
    
+   public int size()
+   {
+      return (operatorSummaries.size());
+   }
+   
    public String toText()
    {
       String text = "";
