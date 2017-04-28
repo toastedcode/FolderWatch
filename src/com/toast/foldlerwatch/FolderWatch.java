@@ -26,6 +26,7 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import javax.mail.util.ByteArrayDataSource;
 
+import com.toast.foldlerwatch.archive.Archive;
 import com.toast.foldlerwatch.oasisreport.OasisReport;
 import com.toast.foldlerwatch.summaryreport.SummaryReport;
 
@@ -44,6 +45,12 @@ public class FolderWatch
                case "-summaryreport":
                {
                   summaryReport();
+                  break;
+               }
+               
+               case "-archive":
+               {
+                  archive();
                   break;
                }
                
@@ -105,6 +112,44 @@ public class FolderWatch
          if (summaryReport.size() > 0)
          {
             emailNotification(watchedPath, summaryReport);
+         }
+      }
+   }
+   
+   public static void archive()
+   {
+      // Get all the watched folders from the properties file.
+      String[] folders = properties.getProperty("folders").split(",");
+      
+      // Get the archive folder from the properties file.
+      String archiveFolder = properties.getProperty("archive");
+      
+      for (String folder : folders)
+      {
+         // Create a Path object from the folder string.
+         Path folderPath = FileSystems.getDefault().getPath(folder);
+         
+         // Create a Path object from the archive folder string.
+         String[] subFolders = folder.split("/");
+         String watchFolderName = subFolders[subFolders.length - 1];
+         String archiveSubFolder = archiveFolder + watchFolderName + "/";
+         Path archivePath = FileSystems.getDefault().getPath(archiveSubFolder);
+         
+         try (DirectoryStream<Path> stream = Files.newDirectoryStream(folderPath))
+         {
+            // Loop through all files in the directory.
+            for (Path file: stream)
+            {
+               // Look for Oasis report files.
+               if (file.getFileName().toString().endsWith(".rpt"))
+               {
+                  Archive.archive(file, archivePath);
+               }
+            }
+         }
+         catch (IOException e)
+         {
+            e.printStackTrace();
          }
       }
    }
