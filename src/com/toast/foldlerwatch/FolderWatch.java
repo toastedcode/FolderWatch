@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.nio.file.WatchService;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
@@ -44,13 +45,45 @@ public class FolderWatch
             {
                case "-summaryreport":
                {
-                  summaryReport();
+                  SummaryReport.Shift shift = SummaryReport.Shift.ALL;
+                  
+                  // Get shift, if specified.
+                  if ((args.length >= 3) &&
+                      (args[1].equals("-shift")))
+                  {
+                     try
+                     {
+                        shift = SummaryReport.Shift.valueOf(args[2]);
+                     }
+                     catch (IllegalArgumentException e)
+                     {
+                        shift = SummaryReport.Shift.ALL;
+                     }
+                  }
+                  
+                  summaryReport(shift);
                   break;
                }
                
                case "-archive":
                {
-                  archive();
+                  SummaryReport.Shift shift = SummaryReport.Shift.ALL;
+                  
+                  // Get shift, if specified.
+                  if ((args.length >= 3) &&
+                      (args[1].equals("-shift")))
+                  {
+                     try
+                     {
+                        shift = SummaryReport.Shift.valueOf(args[2]);
+                     }
+                     catch (IllegalArgumentException e)
+                     {
+                        shift = SummaryReport.Shift.ALL;
+                     }
+                  }
+                  
+                  archive(shift);
                   break;
                }
                
@@ -74,10 +107,10 @@ public class FolderWatch
       }
    }
    
-   public static void summaryReport()
+   public static void summaryReport(SummaryReport.Shift shift)
    {
-      // Get all the watched folders from the properties file.
-      String[] folders = properties.getProperty("folders").split(",");
+      // Get the appropriate watched folders from the properties file.
+      String[] folders = getFolders(shift);
       
       for (String folder : folders)
       {
@@ -116,10 +149,10 @@ public class FolderWatch
       }
    }
    
-   public static void archive()
+   public static void archive(SummaryReport.Shift shift)
    {
-      // Get all the watched folders from the properties file.
-      String[] folders = properties.getProperty("folders").split(",");
+      // Get the appropriate watched folders from the properties file.
+      String[] folders = getFolders(shift);
       
       // Get the archive folder from the properties file.
       String archiveFolder = properties.getProperty("archive");
@@ -211,6 +244,7 @@ public class FolderWatch
              Path watchedPath = (Path)key.watchable();
 
              // The filename is the context of the event.
+             @SuppressWarnings("unchecked")
              WatchEvent<Path> ev = (WatchEvent<Path>)event;
              String filename = ev.context().toString();
              
@@ -424,6 +458,39 @@ public class FolderWatch
       FileInputStream in = new FileInputStream("./default.properties");
       properties.load(in);
       in.close();
+   }
+   
+   static private String[] getFolders(SummaryReport.Shift shift)
+   {
+      String[] folders = null;
+      
+      String[] firstShiftFolders = properties.getProperty("folders.firstShift").split(",");
+      String[] secondShiftFolders = properties.getProperty("folders.secondShift").split(",");
+      
+      switch (shift)
+      {
+         case FIRST:
+         {
+            folders = firstShiftFolders;
+            break;
+         }
+         
+         case SECOND:
+         {
+            folders = secondShiftFolders;
+            break;
+         }
+         
+         case ALL:
+         default:
+         {
+            folders = Arrays.copyOf(firstShiftFolders, firstShiftFolders.length + secondShiftFolders.length);
+            System.arraycopy(secondShiftFolders, 0, folders, firstShiftFolders.length, secondShiftFolders.length);
+            break;
+         }
+      }
+      
+      return (folders);
    }
    
    static boolean isWatchTime()

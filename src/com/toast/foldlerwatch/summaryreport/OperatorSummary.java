@@ -142,8 +142,6 @@ public class OperatorSummary
    
    private Set<String> employeeNumbers = new HashSet<String>();
    
-   private Set<String> employeeNames = new HashSet<String>();
-   
    private Set<Date> reportDates = new HashSet<Date>();
    
    private Map<String, MachineSummary> machineSummaries =  new HashMap<String, MachineSummary>();   
