@@ -1,2 +1,2 @@
-javaw -jar FolderWatch.jar -archive -shift FIRST
+javaw -jar FolderWatch.jar -archive -shift All
 pause

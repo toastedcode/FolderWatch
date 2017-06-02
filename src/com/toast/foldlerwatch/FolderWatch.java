@@ -462,10 +462,19 @@ public class FolderWatch
    
    static private String[] getFolders(SummaryReport.Shift shift)
    {
-      String[] folders = null;
+      String[] folders = {};
+      String[] firstShiftFolders = {};
+      String[] secondShiftFolders = {};
       
-      String[] firstShiftFolders = properties.getProperty("folders.firstShift").split(",");
-      String[] secondShiftFolders = properties.getProperty("folders.secondShift").split(",");
+      if (properties.containsKey("folders.firstShift"))
+      {
+         firstShiftFolders = properties.getProperty("folders.firstShift").split(",");
+      }
+      
+      if (properties.containsKey("folders.secondShift"))
+      {
+         secondShiftFolders = properties.getProperty("folders.secondShift").split(",");
+      }
       
       switch (shift)
       {
