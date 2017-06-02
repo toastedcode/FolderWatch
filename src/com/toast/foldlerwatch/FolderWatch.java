@@ -163,9 +163,9 @@ public class FolderWatch
          Path folderPath = FileSystems.getDefault().getPath(folder);
          
          // Create a Path object from the archive folder string.
-         String[] subFolders = folder.split("/");
+         String[] subFolders = folder.split("\\\\");
          String watchFolderName = subFolders[subFolders.length - 1];
-         String archiveSubFolder = archiveFolder + watchFolderName + "/";
+         String archiveSubFolder = archiveFolder + "\\" + watchFolderName;
          Path archivePath = FileSystems.getDefault().getPath(archiveSubFolder);
          
          try (DirectoryStream<Path> stream = Files.newDirectoryStream(folderPath))
