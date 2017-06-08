@@ -30,6 +30,7 @@ import javax.mail.util.ByteArrayDataSource;
 import com.toast.foldlerwatch.archive.Archive;
 import com.toast.foldlerwatch.oasisreport.OasisReport;
 import com.toast.foldlerwatch.summaryreport.SummaryReport;
+import com.toast.foldlerwatch.summaryreport.SummaryReport.Shift;
 
 public class FolderWatch
 {
@@ -193,8 +194,8 @@ public class FolderWatch
       {
          watchService = FileSystems.getDefault().newWatchService();
          
-         // Get all the watched folders from the properties file.
-         String[] folders = properties.getProperty("folders").split(",");
+         // Get the appropriate watched folders from the properties file.
+         String[] folders = getFolders(Shift.ALL);
          
          for (String folder : folders)
          {
