@@ -488,8 +488,6 @@ public class FolderWatch
       // Url
       sb.append(urlString);
       sb.append("?");
-      // action
-      sb.append("action=record_part_inspection&");
       // dateTime
       sb.append("dateTime=");
       sb.append(date);
