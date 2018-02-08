@@ -1,8 +1,13 @@
 package com.toast.foldlerwatch;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.String;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.DirectoryStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -16,6 +21,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 import java.util.TimeZone;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
@@ -116,7 +123,7 @@ public class FolderWatch
       for (String folder : folders)
       {
          // Create a Path object from the path string.
-         watchedPath = FileSystems.getDefault().getPath(folder);
+         Path watchedPath = FileSystems.getDefault().getPath(folder);
          
          final SummaryReport summaryReport = new SummaryReport();
          
@@ -200,7 +207,7 @@ public class FolderWatch
          for (String folder : folders)
          {
             // Create a Path object from the path string.
-            watchedPath = FileSystems.getDefault().getPath(folder);
+            Path watchedPath = FileSystems.getDefault().getPath(folder);
           
             // Register the watch service for this path.
             watchedPath.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
@@ -269,6 +276,8 @@ public class FolderWatch
    
    static private void onNewFileDetected(Path path)
    {
+      final int DELAY = 250;  // milliseconds
+      
       String filename = path.getFileName().toString();
       
       if (!filename.contains(".rpt"))
@@ -277,28 +286,42 @@ public class FolderWatch
       }
       else
       {
-         System.out.format("Detected file addition to %s: %s%n", watchedPath.toString(), filename);
+         System.out.format("Detected file addition to %s: %s%n", path.toString(), filename);
          
-         try
+         // Execute on a delay.
+         // Note: We were seeing an IO Exception when we attempted to process this file immediately after it was added to the folder.
+         Timer delayTimer = new Timer();
+         delayTimer.schedule(new TimerTask()
          {
-            // Parse the Oasis report file.
-            OasisReport report = new OasisReport();
-            boolean success = report.parse(path.toFile());
-            
-            if (success == false)
+            @Override
+            public void run()
             {
-               System.out.format("Failed to parse the file [%s].\n", filename);
+               try
+               {
+                  // Parse the Oasis report file.
+                  OasisReport report = new OasisReport();
+                  boolean success = report.parse(path.toFile());
+                  
+                  if (success == false)
+                  {
+                     System.out.format("Failed to parse the file [%s].\n", filename);
+                  }
+                  else
+                  {
+                     System.out.format("Notifying %s%n", properties.getProperty("mail.to"));
+                     emailNotification(path, report);
+                     
+                     System.out.format("Uploading report summary to server.\n");
+                     String serverUrl = properties.getProperty("server.url");
+                     serverUpload(serverUrl, report);
+                  }
+               }
+               catch (IOException e)
+               {
+                  System.out.format("Exception: %s%n", e.toString());
+               }
             }
-            else
-            {
-               System.out.format("Notifying %s%n", properties.getProperty("mail.to"));
-               emailNotification(path, report);
-            }
-         }
-         catch (IOException e)
-         {
-            System.out.format("Exception: %s%n", e.toString());
-         }
+         }, DELAY);
       }
    }
    
@@ -451,6 +474,79 @@ public class FolderWatch
        {
           e.printStackTrace();
        }
+   }
+   
+   static private void serverUpload(String urlString, OasisReport report)
+   {
+      StringBuilder sb = new StringBuilder();
+
+      // Format date for PHP and GET request.
+      SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+      String date = formatter.format(report.getDate());
+      date = date.replaceAll(" ", "%20");
+      
+      // Url
+      sb.append(urlString);
+      sb.append("?");
+      // action
+      sb.append("action=record_part_inspection&");
+      // dateTime
+      sb.append("dateTime=");
+      sb.append(date);
+      sb.append("&");
+      // Employee number
+      sb.append("employeeNumber=");
+      sb.append(report.getEmployeeNumber());
+      sb.append("&");
+      // WC number
+      sb.append("wcNumber=");
+      sb.append(report.getMachineNumber());
+      sb.append("&");
+      // Part number
+      sb.append("partNumber=");
+      sb.append(report.getPartNumber());
+      sb.append("&");
+      // Part count
+      sb.append("partCount=");
+      sb.append(report.getPartCount());
+      sb.append("&");
+      // Failures
+      sb.append("failures=");
+      sb.append(report.getFailureCount());
+      sb.append("&");
+      // Efficiency
+      sb.append("efficiency=");
+      sb.append(report.getEfficiency());
+      sb.append("&");
+      
+      InputStream inputStream;
+      
+      try
+      {
+         URL url = new URL(sb.toString());
+         inputStream = url.openStream();
+         
+         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+         
+         StringBuilder response = new StringBuilder();
+         String line;
+         
+         while ((line = reader.readLine()) != null)
+         {
+            response.append(line);
+            response.append('\r');
+         }
+         
+         System.out.format("Server response: %s", response.toString());
+      }
+      catch (MalformedURLException e)
+      {
+         // TODO
+      }
+      catch (IOException e)
+      {
+         // TODO
+      }
    }
 
    static private void loadProperties() throws IOException
@@ -613,7 +709,5 @@ public class FolderWatch
    static private Properties properties;
    
    static WatchService watchService;
-   
-   static Path watchedPath; 
    
 }
