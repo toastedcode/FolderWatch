@@ -274,11 +274,11 @@ public class FolderWatch
       }      
    }
    
-   static private void onNewFileDetected(Path path)
+   static private void onNewFileDetected(final Path path)
    {
       final int DELAY = 250;  // milliseconds
       
-      String filename = path.getFileName().toString();
+      final String filename = path.getFileName().toString();
       
       if (!filename.contains(".rpt"))
       {
