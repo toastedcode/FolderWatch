@@ -6,8 +6,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.String;
+import java.net.ConnectException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.DirectoryStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -522,30 +526,42 @@ public class FolderWatch
       InputStream inputStream;
       
       try
-      {
+      {         
          URL url = new URL(sb.toString());
-         inputStream = url.openStream();
          
-         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+         connection.setConnectTimeout(5000);
+         connection.setReadTimeout(5000);
          
-         StringBuilder response = new StringBuilder();
-         String line;
+         connection.connect();
          
-         while ((line = reader.readLine()) != null)
+         if (connection.getResponseCode() == HttpURLConnection.HTTP_OK)
          {
-            response.append(line);
-            response.append('\r');
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            
+            StringBuilder response = new StringBuilder();
+            String line;
+            
+            while ((line = reader.readLine()) != null)
+            {
+               response.append(line);
+               response.append('\r');
+            }
+            
+            System.out.format("Server response: %s", response.toString());
          }
-         
-         System.out.format("Server response: %s", response.toString());
+         else
+         {
+            System.out.format("Bad server request: %s.", sb.toString());
+         }
       }
-      catch (MalformedURLException e)
+      catch (SocketTimeoutException | ConnectException e)
       {
-         // TODO
+         System.out.format("Failed to contact server.");
       }
       catch (IOException e)
       {
-         // TODO
+         e.printStackTrace();
       }
    }
 
