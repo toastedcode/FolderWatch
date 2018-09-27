@@ -8,10 +8,8 @@ import java.io.InputStreamReader;
 import java.lang.String;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.file.DirectoryStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -42,6 +40,7 @@ import com.toast.foldlerwatch.archive.Archive;
 import com.toast.foldlerwatch.oasisreport.OasisReport;
 import com.toast.foldlerwatch.summaryreport.SummaryReport;
 import com.toast.foldlerwatch.summaryreport.SummaryReport.Shift;
+import com.toast.foldlerwatch.parser.ParseException;
 
 public class FolderWatch
 {
@@ -149,7 +148,7 @@ public class FolderWatch
                }
             }
          }
-         catch (IOException e)
+         catch (IOException | ParseException e)
          {
             e.printStackTrace();
          }
@@ -322,7 +321,7 @@ public class FolderWatch
                      serverUpload(serverUrl, report);
                   }
                }
-               catch (IOException e)
+               catch (IOException | ParseException e)
                {
                   System.out.format("Exception: %s%n", e.toString());
                }

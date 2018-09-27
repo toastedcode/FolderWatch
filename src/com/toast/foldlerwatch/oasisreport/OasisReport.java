@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,45 +14,52 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import com.toast.foldlerwatch.parser.ParseException;
+import com.toast.foldlerwatch.parser.Parser;
+import com.toast.foldlerwatch.parser.RptParser;
+import com.toast.foldlerwatch.parser.XlsParser;
+
 public class OasisReport implements Comparable<OasisReport>
 {
+   
    public OasisReport()
    {
-      
    }
    
-   public boolean parse(File file) throws IOException
+   public boolean parse(File file) throws IOException, ParseException
    {
-      boolean success = true;
+      boolean success = false;
       
-      // Open the file
-      FileInputStream fileInputStream = new FileInputStream(file);
-      BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
-
-      String line;
-
-      // Read file, line by line.
-      while ((line = bufferedReader.readLine()) != null)
+      String filename = file.getName();
+      String extension = filename.substring(filename.lastIndexOf("."));
+      
+      Parser parser = null;
+      
+      if (extension.equals(".rpt"))
       {
-         try
-         {
-            success &= parse(line);
-         }
-         catch (Exception e)
-         {
-            System.out.format("Failed to parse line in file [%s]: \"%s\"", file.toString(), line);
-         }
-         
-         if (!success)
-         {
-            System.out.format("Failed to parse line in file [%s]: \"%s\"", file.toString(), line);
-            break;
-         }
+         parser = new RptParser();
+      }
+      else if (extension.equals(".xls"))
+      {
+         parser = new XlsParser();
+      }
+      else
+      {
+         throw new IOException();
       }
       
-      bufferedReader.close();
+      parser.parse(file,  this);
+      success = true;
       
       return (success);
+   }
+   
+   public void addInspection(PartInspection inspection)
+   {
+      if (inspection != null)
+      {
+         inspections.add(inspection);
+      }
    }
    
    public String toText()
@@ -94,16 +100,26 @@ public class OasisReport implements Comparable<OasisReport>
       return (html);
    }
    
-   public UserField getUserField(UserFieldType fieldType)
+   public UserField getUserField(int index)
    {
       UserField field = null;
       
-      if (userFields.containsKey(fieldType.ordinal()))
+      if (userFields.containsKey(index))
       {
-         field = userFields.get(fieldType.ordinal());
+         field = userFields.get(index);
       }
       
       return (field);
+   }
+   
+   public UserField getUserField(UserFieldType fieldType)
+   {
+      return (getUserField(fieldType.ordinal()));
+   }
+   
+   public void addUserField(int index, UserField field)
+   {
+      userFields.put(index, field);
    }
          
    public String getEmployeeNumber()
@@ -192,7 +208,7 @@ public class OasisReport implements Comparable<OasisReport>
                date = format.parse(value);
             }
          }
-         catch (ParseException e)
+         catch (java.text.ParseException e)
          {
             date = null;
          }      
@@ -267,6 +283,7 @@ public class OasisReport implements Comparable<OasisReport>
       return (value);      
    }
    
+   /*
    private boolean parse(String line)
    {
       boolean success = true;
@@ -375,6 +392,7 @@ public class OasisReport implements Comparable<OasisReport>
       
       return (success);      
    }
+   */
    
    private String userFieldsToHtml()
    {
@@ -525,8 +543,6 @@ public class OasisReport implements Comparable<OasisReport>
    private Map<Integer, UserField> userFields = new HashMap<Integer, UserField>();
    
    private List<PartInspection> inspections = new ArrayList<PartInspection>();
-   
-   private PartInspection partInspection;
 
    @Override
    public int compareTo(OasisReport rhs)

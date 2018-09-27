@@ -5,48 +5,6 @@ import java.util.Map;
 
 public class PartMeasurement
 {
-   public boolean parse(String string)
-   {
-      boolean success = false;
-      
-      // Oasis measurement format:
-      // DATA|thd lgh|0.6600|0.6620|0.6626|0.6980|0.7000|PASS
-      
-      String[] tokens = string.split("\\|");
-      
-      if (tokens[DATA_INDEX].equals("DATA"))
-      {
-         for (int i = NAME_INDEX; i <= RESULT_INDEX; i++)
-         {
-            if (i == NAME_INDEX)
-            {
-               name = tokens[i];
-            }
-            else if (i == RESULT_INDEX)
-            {
-               result = MeasurementResult.valueOfToken(tokens[i]);
-            }
-            else
-            {
-               MeasurementType type = MeasurementType.values()[(i - FIRST_MEASUREMENT_INDEX)];
-               
-               try
-               {
-                  Double value = Double.parseDouble(tokens[i]);
-                  data.put(type, value);
-               }
-               catch (NumberFormatException e)
-               {
-                  data.put(type,  Double.NaN);
-               }
-            }
-         }
-         
-         success = true;
-      }
-      
-      return (success);
-   }
    
    public boolean isValid()
    {
@@ -56,6 +14,16 @@ public class PartMeasurement
    public String getName()
    {
       return (name);
+   }
+   
+   public void setName(String name)
+   {
+      this.name = name;
+   }
+   
+   public void addValue(MeasurementType type, Double value)
+   {
+      data.put(type, value);
    }
    
    public Double getValue(MeasurementType type)
@@ -73,6 +41,11 @@ public class PartMeasurement
    public MeasurementResult getResult()
    {
       return (result);
+   }
+   
+   public void setResult(MeasurementResult result)
+   {
+      this.result = result;
    }
    
    public String toHtml()
@@ -115,14 +88,6 @@ public class PartMeasurement
       
       return (html);
    }
-   
-   private final int DATA_INDEX = 0;
-   
-   private final int NAME_INDEX = 1;
-   
-   private final int FIRST_MEASUREMENT_INDEX = 2;
-   
-   private final int RESULT_INDEX = 7;
    
    private boolean isValid = false;
    

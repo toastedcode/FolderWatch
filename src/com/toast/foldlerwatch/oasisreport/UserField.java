@@ -2,6 +2,7 @@ package com.toast.foldlerwatch.oasisreport;
 
 public class UserField
 {
+   
    public UserField()
    {
    }
@@ -11,58 +12,6 @@ public class UserField
       this.label = label;
       this.value = value;
    }
-   
-   public boolean parse(String line)
-   {
-      boolean success = true;
-      
-      String[] tokens = line.split("\\|");
-      
-      if (tokens.length > 0)
-      {
-         ReportLineType lineType = ReportLineType.valueOfToken(tokens[0]);
-         
-         switch (lineType)
-         {
-            case USER_FIELD_LABEL:
-            {
-               if (tokens.length == 1)
-               {
-                  // Allow for empty values.
-                  value = "";
-               }
-               else
-               {
-                  label = tokens[1];
-               }
-               break;
-            }
-            
-            case USER_FIELD_VALUE:
-            {
-               if (tokens.length == 1)
-               {
-                  // Allow for empty values.
-                  value = "";
-               }
-               else
-               {
-                  value = tokens[1];
-               }
-               break;
-            }
-            
-            default:
-            {
-               // Parse error!
-               success = false;
-               break;
-            }
-         }
-      }
-      
-      return (success);
-    }
    
    boolean isValid()
    {
@@ -74,9 +23,19 @@ public class UserField
       return (label);
    }
    
+   public void setLabel(String label)
+   {
+      this.label = label;
+   }
+   
    String getValue()
    {
       return (value);
+   }
+   
+   public void setValue(String value)
+   {
+      this.value = value;
    }
 
    private String label = null;

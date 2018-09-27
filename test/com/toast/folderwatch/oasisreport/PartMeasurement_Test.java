@@ -1,19 +1,10 @@
 package com.toast.folderwatch.oasisreport;
 
-import static org.junit.Assert.*;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import org.junit.Test;
-
-import com.toast.foldlerwatch.oasisreport.MeasurementResult;
-import com.toast.foldlerwatch.oasisreport.MeasurementType;
-import com.toast.foldlerwatch.oasisreport.PartMeasurement;
-
 public class PartMeasurement_Test
 {
 
+   // TODO:  Move into a Parser test.
+   /*
    @Test
    public void testParse()
    {
@@ -38,5 +29,5 @@ public class PartMeasurement_Test
       
       assertTrue(measurement.getResult() == MeasurementResult.PASS);
    }
-
+   */
 }

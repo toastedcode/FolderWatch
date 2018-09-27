@@ -1,14 +1,9 @@
 package com.toast.folderwatch.oasisreport;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
-import com.toast.foldlerwatch.oasisreport.PartInspection;
-
 public class PartInspection_Test
 {
-
+   // TODO:  Move into a Parser test.
+   /*
    @Test
    public void testParse()
    {
@@ -40,4 +35,5 @@ public class PartInspection_Test
       
       System.out.format("Date: %s\n", partInspection.getDate().toString());
    }
+   */
 }

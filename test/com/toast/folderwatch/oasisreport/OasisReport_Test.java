@@ -17,11 +17,12 @@ import java.nio.file.attribute.BasicFileAttributes;
 import org.junit.Test;
 
 import com.toast.foldlerwatch.oasisreport.OasisReport;
+import com.toast.foldlerwatch.parser.ParseException;
 
 public class OasisReport_Test
 {
    @Test
-   public void testParse() throws IOException
+   public void testParse() throws IOException, ParseException
    {
       OasisReport report = new OasisReport();
       
@@ -42,7 +43,7 @@ public class OasisReport_Test
    }
    
    @Test
-   public void testToHtml() throws IOException
+   public void testToHtml() throws IOException, ParseException
    {
       OasisReport report = new OasisReport();
       
@@ -70,22 +71,28 @@ public class OasisReport_Test
    }
    
    @Test
-   public void testToHtml_large() throws IOException
+   public void testToHtml_large() throws IOException, ParseException
    {
       Path p = Paths.get("./testcases/");
       
       FileVisitor<Path> fv = new SimpleFileVisitor<Path>()
       {
         @Override
-        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-            throws IOException
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException
         {
            String filename = file.getFileName().toString();
            
            OasisReport report = new OasisReport();
            
            // Parse
-           assertTrue(report.parse(file.toFile()));
+           try
+           {
+              assertTrue(report.parse(file.toFile()));
+           }
+           catch (ParseException e)
+           {
+              assertTrue(false);  // TODO: Proper way?
+           }
            
            // Convert to HTML.
            String html = report.toHtml();
