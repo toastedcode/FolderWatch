@@ -27,7 +27,11 @@ public class OasisReport_Test
       OasisReport report = new OasisReport();
       
       // Open a report file.
-      File file = new File("M8206 Rev 10.rpt");
+      //File file = new File("M8206 Rev 10.rpt");
+      //File file = new File("InspectionReport_Cracked.xls");
+      //File file = new File("InspectionReport_Copied.xls");
+      File file = new File("InspectionReport.xls");
+      //File file = new File("InspectionReport2.xls");
       
       System.out.format("File: %s\n", file.getAbsolutePath());
       
@@ -48,7 +52,8 @@ public class OasisReport_Test
       OasisReport report = new OasisReport();
       
       // Open a report file.
-      File file = new File("M8206 Rev 10.rpt");
+      //File file = new File("M8206 Rev 10.rpt");
+      File file = new File("InspectionReport.xls");
     
       // Parse
       assertTrue(report.parse(file));

@@ -6,11 +6,6 @@ import java.util.Map;
 public class PartMeasurement
 {
    
-   public boolean isValid()
-   {
-      return (isValid);
-   }
-   
    public String getName()
    {
       return (name);
@@ -88,8 +83,6 @@ public class PartMeasurement
       
       return (html);
    }
-   
-   private boolean isValid = false;
    
    private String name = "";
    
