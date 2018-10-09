@@ -16,6 +16,7 @@ import com.toast.foldlerwatch.oasisreport.UserFieldType;
 
 import jxl.Workbook;
 import jxl.biff.CellReferenceHelper;
+import jxl.format.CellFormat;
 import jxl.read.biff.BiffException;
 import jxl.Cell;
 import jxl.Sheet;
@@ -36,8 +37,6 @@ public class XlsParser implements Parser
          parseUserFields();
          
          parseInspections();
-         
-         System.out.format("Inspection report:\n%s\n", this.report.toHtml());
       }
       catch (BiffException e)
       {
@@ -150,7 +149,7 @@ public class XlsParser implements Parser
          }
          catch (NumberFormatException e)
          {
-            measurement.addValue(measurementType, 0.0);
+            measurement.addValue(measurementType, Double.NaN);
          }
       }
       
@@ -159,7 +158,15 @@ public class XlsParser implements Parser
       String content = getContent(cellAddress);
       if (content.isEmpty())
       {
-         measurement.setResult(MeasurementResult.PASS);
+         // Empty cells can be either FAIL_NULL (MEASURED = "") or PASS (MEASURED != "").
+         if (measurement.getValue(MeasurementType.MEASURED).equals(Double.NaN))
+         {
+            measurement.setResult(MeasurementResult.FAIL_NULL);
+         }
+         else
+         {
+            measurement.setResult(MeasurementResult.PASS);
+         }
       }
       else
       {
@@ -204,6 +211,20 @@ public class XlsParser implements Parser
       }
       
       return (content);
+   }
+   
+   private CellFormat getFormat(String cellAddress)
+   {
+      CellFormat format = null;
+      
+      Cell cell = workbook.getCell(cellAddress);
+      
+      if (cell != null)
+      {
+         format = cell.getCellFormat();
+      }
+      
+      return (format);
    }
    
    private String getSheet(String address)

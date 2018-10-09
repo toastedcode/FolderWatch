@@ -1,12 +1,16 @@
 package com.toast.foldlerwatch.parser;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import com.toast.foldlerwatch.oasisreport.MeasurementResult;
@@ -16,6 +20,7 @@ import com.toast.foldlerwatch.oasisreport.PartInspection;
 import com.toast.foldlerwatch.oasisreport.PartMeasurement;
 import com.toast.foldlerwatch.oasisreport.ReportLineType;
 import com.toast.foldlerwatch.oasisreport.UserField;
+import com.toast.foldlerwatch.oasisreport.UserFieldType;
 
 public class RptParser implements Parser
 {
@@ -40,11 +45,31 @@ public class RptParser implements Parser
          }
          catch (Exception e)
          {
-            System.out.format("Failed to parse line in file [%s]: \"%s\"", file.toString(), line);
+            System.out.format("Failed to parse line in file [%s]: \"%s\"\n", file.toString(), line);
          }
       }
       
       bufferedReader.close();
+   }
+   
+   public void serialize(OasisReport report, File file) throws IOException
+   {
+      StringBuilder builder = new StringBuilder();
+      
+      serializePartInspections(report, builder);
+      
+      serializeUserFields(report, builder);
+      
+      //
+      // Write to a file.
+      //
+
+      FileWriter fileWriter = new FileWriter(file);
+      BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+      
+      bufferedWriter.write(builder.toString());
+      
+      bufferedWriter.close();
    }
    
    private boolean parse(String line) throws ParseException
@@ -286,7 +311,6 @@ public class RptParser implements Parser
                catch (NumberFormatException e)
                {
                   measurement.addValue(type,  Double.NaN);
-                  throw new ParseException();
                }
             }
          }
@@ -339,6 +363,109 @@ public class RptParser implements Parser
       }
    }
    
+   private static void serializePartInspections(OasisReport report, StringBuilder builder)
+   {
+      for (PartInspection inspection : report.getInspections())
+      {
+         serializePartInspection(inspection, builder);
+         
+         builder.append(NEWLINE);
+      }
+   }
+   
+   private static void serializePartInspection(PartInspection inspection, StringBuilder builder)
+   {
+      builder.append("START|");
+      builder.append(inspection.getDataFile());
+      builder.append(NEWLINE);
+      
+      for (PartMeasurement measurement : inspection.getMeasurments())
+      {
+         serializePartMeasurement(measurement, builder);
+      }
+      
+      Date date = inspection.getDate();
+      DateFormat formatter = new SimpleDateFormat("MMM dd yyyy", Locale.ENGLISH);
+      String dateString = formatter.format(date);
+      formatter = new SimpleDateFormat("hh:mm:ss a");
+      String timeString = formatter.format(date);
+      
+      builder.append("END|");
+      builder.append(dateString);
+      builder.append("|");
+      builder.append(timeString);
+      builder.append(NEWLINE);
+   }
+   
+   private static void serializePartMeasurement(PartMeasurement measurement, StringBuilder builder)
+   {
+      builder.append("DATA|");
+      
+      builder.append(measurement.getName());
+      builder.append("|");
+      
+      for (MeasurementType measurementType : MeasurementType.values())
+      {
+         Double value = measurement.getValue(measurementType);
+         if (value.isNaN())
+         {
+            builder.append("******");
+         }
+         else if (measurement.getName().contains("DEG"))
+         {
+            // Format degree measurements to two decimal places. 
+            DecimalFormat format = new DecimalFormat("0.00");  
+            builder.append(format.format(value));
+         }
+         else
+         {
+            // All others, format four decimal places.
+            DecimalFormat format = new DecimalFormat("0.0000");  
+            builder.append(format.format(value));
+         }
+         builder.append("|");
+      }
+      
+      if (measurement.getResult() != MeasurementResult.UNKNOWN)
+      {
+         builder.append(measurement.getResult().toString());
+      }
+      builder.append(NEWLINE);
+   }
+   
+   private static void serializeUserFields(OasisReport report, StringBuilder builder)
+   {
+      //
+      // User field labels
+      //
+      
+      for (UserFieldType fieldType : UserFieldType.values())
+      {
+         builder.append("UserField");
+         builder.append(fieldType.ordinal() + 1);
+         builder.append("|");
+         builder.append(fieldType.getLabel());
+         builder.append(NEWLINE);
+      }
+      
+      builder.append(NEWLINE);
+      
+      //
+      // User field values
+      //
+      
+      for (UserFieldType fieldType : UserFieldType.values())
+      {
+         UserField field = report.getUserField(fieldType);
+         
+         builder.append("UserData");
+         builder.append(fieldType.ordinal() + 1);
+         builder.append("|");
+         builder.append((field == null) ? "" : field.getValue());
+         builder.append(NEWLINE);
+      }
+   }
+   
    private final int DATA_INDEX = 0;
    
    private final int NAME_INDEX = 1;
@@ -346,6 +473,8 @@ public class RptParser implements Parser
    private final int FIRST_MEASUREMENT_INDEX = 2;
    
    private final int RESULT_INDEX = 7;
+   
+   private final static String NEWLINE = "\r\n";
    
    private PartInspection partInspection = null;
    

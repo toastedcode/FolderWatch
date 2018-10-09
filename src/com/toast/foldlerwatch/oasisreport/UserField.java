@@ -13,12 +13,12 @@ public class UserField
       this.value = value;
    }
    
-   boolean isValid()
+   public boolean isValid()
    {
       return ((label != null) && (value != null));
    }
    
-   String getLabel()
+   public String getLabel()
    {
       return (label);
    }
@@ -28,7 +28,7 @@ public class UserField
       this.label = label;
    }
    
-   String getValue()
+   public String getValue()
    {
       return (value);
    }

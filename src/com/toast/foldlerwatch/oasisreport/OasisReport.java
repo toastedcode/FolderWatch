@@ -62,6 +62,11 @@ public class OasisReport implements Comparable<OasisReport>
       }
    }
    
+   public List<PartInspection> getInspections()
+   {
+      return (inspections);
+   }
+   
    public String toText()
    {
       String text = "";
@@ -120,6 +125,11 @@ public class OasisReport implements Comparable<OasisReport>
    public void addUserField(int index, UserField field)
    {
       userFields.put(index, field);
+   }
+   
+   public Map<Integer, UserField> getUserFields()
+   {
+      return (userFields);
    }
          
    public String getEmployeeNumber()
@@ -188,7 +198,8 @@ public class OasisReport implements Comparable<OasisReport>
    {
       Date date = null;
       
-      PartInspection inspection = inspections.get(0);
+      // Retrieve the first inspection, if one exists.
+      PartInspection inspection = inspections.isEmpty() ? null : inspections.get(0);
       
       // Our most precise date can be pulled out of the first PartInspection object.
       if (inspection != null)
@@ -227,7 +238,10 @@ public class OasisReport implements Comparable<OasisReport>
          
          // String generally looks like this: 
          // M8206 Rev 10
-         value = value.substring(0, value.indexOf(" "));
+         if (!value.isEmpty())
+         {
+            value = value.substring(0, value.indexOf(" "));
+         }
       }
       
       return (value);
