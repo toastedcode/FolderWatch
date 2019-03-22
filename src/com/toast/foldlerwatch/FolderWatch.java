@@ -343,14 +343,18 @@ public class FolderWatch
       // Convert to a .rpt file.
       XlsToRpt.convert(srcPath.toString(), targetPath.toString());
       
-      try
+      if (properties.containsKey("openOnXlsConversion") &&
+          Boolean.valueOf(properties.getProperty("openOnXlsConversion")))
       {
-         // Open up the new file in the Oasis report program for editing custom fields.
-         Desktop.getDesktop().open(targetPath.toFile());
-      }
-      catch (IOException e)
-      {
-         System.out.format("Exception: %s\n", e.toString());
+         try
+         {
+            // Open up the new file in the Oasis report program for editing custom fields.
+            Desktop.getDesktop().open(targetPath.toFile());
+         }
+         catch (IOException e)
+         {
+            System.out.format("Exception: %s\n", e.toString());
+         }
       }
    }
    
