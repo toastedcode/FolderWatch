@@ -1,0 +1,29 @@
+{
+   "emailServerConfig":
+   {
+      "host": "smtp.gmail.com",
+      "user": "jasontost@gmail.com",
+      "password": "P4SSW0RD",
+      "port": 101
+   },
+   "serverConfig":
+   {
+      "url": "http://localhost/pptp/inspection/uploadOasisReport.php"
+   },
+   "folders":
+   [
+      {"path": "C:\\WatchThis", "isEnabled": true},
+      {"path": "C:\\WatchThisToo", "isEnabled": true}
+   ],
+   "emailAddresses":
+   [
+      {"address": "jtost@compunetix.com", "isEnabled": true},
+      {"address": "spamtost@gmail.com", "isEnabled": false}
+   ],
+   "employees":
+   [
+      {"firstName": "Jason", "lastName": "Tost", "employeeNumber": 101},
+      {"name": "Chad", "lastName": "Smith", "employeeNumber": 102}
+   ],
+   "archiveFolder": "C:/MyArchiveFolder"
+}
